@@ -11,7 +11,7 @@ import type {
 
 // 创建文章接口，接受文章创建请求数据，发送POST请求
 export const createArticleApi = (data: articleCreateReq): Promise<baseResponse<string>> =>
-  useAxios.post('/api/article/create', { data });
+  useAxios.post('/api/user/article/create', data);
 
 // 删除文章接口，接受文章ID，发送POST请求进行删除操作
 export const deleteArticleApi = (id: number): Promise<baseResponse<string>> =>
@@ -20,9 +20,9 @@ export const deleteArticleApi = (id: number): Promise<baseResponse<string>> =>
 // 管理员获取文章详情接口，接受文章ID，发送GET请求获取文章详细信息
 export const adminGetArticleDetailApi = (id: number): Promise<baseResponse<articleRes>> =>
   useAxios.get('/api/admin/article/detail', { params: { id } });
-// 获取文章详情接口，接受文章ID，发送GET请求获取文章详细信息
-export const getArticleDetailApi = (id: number): Promise<baseResponse<articleRes>> =>
-  useAxios.get('/api/admin/article/detail', { params: { id } });
+// 普通人获取文章详情接口，接受文章ID，发送GET请求获取文章详细信息
+export const userGetArticleDetailApi = (id: number): Promise<baseResponse<articleRes>> =>
+  useAxios.get('/api/user/article/detail', { params: { id } });
 // 管理员获取文章列表接口，接受文章查询列表请求参数，发送GET请求获取文章列表
 export const adminGetArticleListApi = (params?: articleQueryListReq): Promise<baseResponse<listResponse<articleRes>>> =>
   useAxios.get('/api/admin/article/query_list', { params });

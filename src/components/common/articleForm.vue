@@ -3,21 +3,44 @@ import { ref, computed, onMounted } from 'vue';
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import cover_cutter from '@/components/web/cover-cutter.vue'
-import type { articleRes } from '@/types/artrcle'
-import { adminGetArticleDetailApi, createArticleApi } from '@/api/article'
+import type { articleRes, articleCreateReq } from '@/types/artrcle'
+import { userGetArticleDetailApi, createArticleApi } from '@/api/article'
 import { reactive } from "vue";
-
 import { Message } from "@arco-design/web-vue";
-import router from "@/router";
 import { initArticleFormMock, articleMockList } from "@/mock/articleMock";
 import { provinceData } from '@/mock/commonMock'
-import type { optionsType } from '@/types/index'
 import { onUploadImg } from '@/api/common'
+import { userStore } from '@/stores/user-store';  // 导入用户状态管理store
+// 引入API相关的类型定义
+import type { optionsType } from "@/types/index"
 // import { provinceDataList } from '@/mock/commonMock'
 
-// const store = userStorei()
+const puserStore = userStore();  // 获取用户store实例
+puserStore.loadUserInfo();  // 加载用户信息
+const userInfo = ref();  // 声明userInfo，保存用户信息
+if (puserStore.isLogin) {  // 如果用户已经登录
+    userInfo.value = puserStore.userInfo  // 设置userInfo为已登录的用户信息
+}
+
 // 定义初始表单结构
 const form = reactive<articleRes>(initArticleFormMock)
+const articleCreate = reactive<articleCreateReq>({
+    // 文章标题，必填
+    title: '',
+    // 文章描述，选填，文章的简短描述
+    desc: '',
+    // 封面图片，选填，文章的封面图URL
+    cover: '',
+    // 文章内容，必填
+    content: '',
+    // 相关联用户id
+    user_id: 0,
+    // 省份代码
+    province_code: 0,
+    // 城市代码
+    city_code: 0,
+    tags: []
+})
 interface Props {
     articleId?: number
     privonceOpen?: boolean
@@ -31,7 +54,7 @@ if (props.articleId) {
 const tagOptions = ref<optionsType[]>([])
 const tags = ref<string[]>([])
 async function getData() {
-    const res = await adminGetArticleDetailApi(props.articleId as number)
+    const res = await userGetArticleDetailApi(props.articleId as number)
     if (res.code) {
         Message.error(res.msg)
         return
@@ -48,7 +71,7 @@ async function getData() {
     form.city_code = resData.city_code
     form.created_at = resData.created_at
     form.updated_at = resData.updated_at
-    form.user_id = resData.user_id
+    form.creator = resData.creator
     form.tags = resData.tags
     form.examine_status = resData.examine_status
     initData()
@@ -86,11 +109,30 @@ const formRef = ref()
 
 // 创建和更新逻辑
 async function create() {
-    // const val = await formRef.value.validate()
-    // if (val) return
-    // emits("ok", form)
-    const res = await createArticleApi(form)
-    console.log(res)
+    articleCreate.title = form.title
+    articleCreate.desc = form.desc
+    articleCreate.cover = form.cover
+    articleCreate.content = form.content
+    articleCreate.user_id = userInfo.value.id
+    articleCreate.province_code = selectedProvinceValue.value
+    articleCreate.city_code = selectedCityValue.value
+    tags.value.forEach(tag => {
+        articleCreate.tags?.push(tag)
+    })
+    const res = await createArticleApi(articleCreate)
+    if (res.code) {
+        Message.error(res.msg)
+        return
+    }
+    Message.success("发布成功")
+    form.title = ''
+    form.desc = ''
+    form.cover = ''
+    form.content = ''
+    form.province_code = 0
+    form.city_code = 0
+    form.creator = 0
+    form.tags = []
 }
 
 function coverBack(data: string) {

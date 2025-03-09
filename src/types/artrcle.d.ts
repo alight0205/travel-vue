@@ -15,16 +15,13 @@ export interface articleCreateReq {
   cover?: string;
   // 文章内容，必填
   content: string;
-  // 阅读数，必填，文章的初始阅读数
-  read_num: number;
-  // 是否为首页横幅，选填，1表示是首页横幅，0表示不是
-  is_banner: number;
   // 相关联用户id
   user_id?: number;
   // 省份代码
   province_code?: int;
   // 城市代码
   city_code?: int;
+  tags?: []
   // 创建时间，必填，文章的创建时间（ISO 8601格式）
   // created_at: string;
   // 更新时间，必填，文章的更新时间（ISO 8601格式）
@@ -85,7 +82,7 @@ export interface articleRes {
   userRes?: userRes;
   // 标签信息
   tags: tagRes[]
-  
+
 }
 
 // 审核文章请求参数接口
@@ -132,5 +129,5 @@ export interface userArticleRes {
   userRes: userRes;
   // 标签信息
   tags?: tagRes[]
-  
+
 }
