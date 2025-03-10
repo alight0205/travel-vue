@@ -90,6 +90,11 @@ export interface articleExamineParams {
   id: number;
   examine_status: number;
 }
+// 精选文章请求参数接口
+export interface articleIsBannerParams {
+  id: number;
+  is_banner: number;
+}
 
 // 文章标签响应数据接口
 export interface articleTagCreateReq {

@@ -5,6 +5,7 @@ import 'md-editor-v3/lib/style.css';
 import cover_cutter from '@/components/web/cover-cutter.vue'
 import type { articleRes, articleCreateReq } from '@/types/artrcle'
 import { userGetArticleDetailApi, createArticleApi } from '@/api/article'
+import {userGetTagListApi} from '@/api/tag'
 import { reactive } from "vue";
 import { Message } from "@arco-design/web-vue";
 import { initArticleFormMock, articleMockList } from "@/mock/articleMock";

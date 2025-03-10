@@ -19,9 +19,9 @@
                   <!-- 首页图标 -->
                   <span title="去首页" @click="goHome()"><icon-home /></span>
                   <!-- 主题图标 -->
-                  <w_theme></w_theme>
+                  <!-- <w_theme></w_theme> -->
                   <!-- 全屏图标 -->
-                  <w_screen></w_screen>
+                  <!-- <w_screen></w_screen> -->
                   <!-- 用户头像区 -->
                   <w_user_dropdown></w_user_dropdown>
               </div>

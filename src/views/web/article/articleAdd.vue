@@ -8,7 +8,7 @@ import articleForm from "@/components/common/articleForm.vue";
             文章发布
         </div>
         <div class="articleAddContent">
-            <articleForm></articleForm>
+            <articleForm article-id="99"></articleForm>
         </div>
     </div>
 </template>

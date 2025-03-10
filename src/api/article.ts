@@ -6,7 +6,8 @@ import type {
   articleUpdateReq,  // 文章更新请求参数类型
   articleQueryListReq,  // 查询文章列表请求参数类型
   articleRes,  // 文章响应数据类型
-  articleExamineParams // 审核文章参数类型
+  articleExamineParams, // 审核文章参数类型
+  articleIsBannerParams
 } from '@/types/artrcle';
 
 // 创建文章接口，接受文章创建请求数据，发送POST请求
@@ -33,6 +34,9 @@ export const userSelfGetArticleListApi = (params?: articleQueryListReq): Promise
 // 审核文章接口，接受文章审核参数，发送POST请求进行审核操作
 export const adminChangeExamine = (params:articleExamineParams):Promise<baseResponse<string>> =>
   useAxios.post('/api/admin/article/examine', params);
+// 管理员精选文章
+export const adminChangeBanner = (params:articleIsBannerParams):Promise<baseResponse<string>> =>
+  useAxios.post('/api/admin/article/set_banner', params);
 
 // 普通人获取文章列表接口，接受文章查询列表请求参数，发送GET请求获取文章列表
 export const getArticleListApi = (params?: articleQueryListReq): Promise<baseResponse<listResponse<articleRes>>> =>

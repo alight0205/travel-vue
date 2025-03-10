@@ -13,8 +13,8 @@ import imageUpload from '@/components/common/imageUpload.vue'
 import articleForm from '@/components/common/articleForm.vue'
 import { initArticleFormMock, articleMockList } from "@/mock/articleMock";
 import { provinceData } from '@/mock/commonMock'
-import { deleteArticleApi, adminChangeExamine } from '@/api/article'
-import type { articleExamineParams } from '@/types/artrcle'
+import { deleteArticleApi, adminChangeExamine,adminChangeBanner } from '@/api/article'
+import type { articleExamineParams,articleIsBannerParams } from '@/types/artrcle'
 
 
 // 定义表格列的配置
@@ -273,6 +273,32 @@ const findCityName = (provinceCode: number | undefined, cityCode: number | undef
 
     return province.name + '未知城市';
 };
+
+const featured = async (record: articleRes) => {
+    const params = <articleIsBannerParams>{
+        id: record.id,
+        is_banner: 0
+    }
+    if (record.is_banner) {
+        params.is_banner = 0
+        const res = await adminChangeBanner(params)
+        if (res.code) {
+            Message.error(res.msg)
+            return
+        }
+        Message.success("精选成功")
+        fListRef.value.getList()
+    } else {
+        params.is_banner = 1
+        const res = await adminChangeBanner(params)
+        if (res.code) {
+            Message.error(res.msg)
+            return
+        }
+        Message.success("取消精选成功")
+        fListRef.value.getList()
+    }
+}
 </script>
 
 <template>
@@ -285,7 +311,7 @@ const findCityName = (provinceCode: number | undefined, cityCode: number | undef
         </a-modal>
         <!-- 使用 w_list 组件，并传入必要的 props 和插槽 -->
         <!-- <w_list @add="visible=true" ref="fListRef" @row-click="rowClick" :actionGroup="actionGroup" :filterGroup="filters" :url="getUserListApi" :columns="columns"> -->
-        <w_list ref="fListRef" ban-lable="文章" :actionGroup="actionGroup" no-batch-delete no-default-delete
+        <w_list ref="fListRef" ban-lable="文章" :actionGroup="actionGroup" no-edit no-batch-delete no-default-delete
             @delete="deleteArticle" @add="addArticle" @edit="editArticle" @row-click="rowClick" @ban="banArticle"
             :url="adminGetArticleListApi" :columns="columns">
             <!-- 自定义插槽列的内容，用于渲染文章封面 -->
@@ -306,11 +332,15 @@ const findCityName = (provinceCode: number | undefined, cityCode: number | undef
                 <a-tag v-if="record.examine_status === 0" color="red">封禁中</a-tag>
                 <a-tag v-else color="green">正常</a-tag>
             </template>
-            <!-- <template #action_left>
-                <a-popconfirm @ok="banUser()" content="确定要封禁该用户吗" type="warning">
-                    <a-button status="danger">封禁</a-button>
+            <template #action_left="{ record }: { record: articleRes }">
+                <a-popconfirm v-if="record.is_banner" @ok="featured(record)" content="确定要取消精选该文章吗"
+                    type="warning">
+                    <a-button status="danger">取消精选</a-button>
                 </a-popconfirm>
-            </template> -->
+                <a-popconfirm v-else @ok="featured(record)" content="确定要精选该文章吗" type="warning">
+                    <a-button status="success">精选</a-button>
+                </a-popconfirm>
+            </template>
         </w_list>
     </div>
 </template>

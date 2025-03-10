@@ -122,18 +122,18 @@ initData()
     <div class="homeView">
         <div class="homeWelcome">
             <div class="title"> {{ welcome.hello }}管理员，请开始一天的工作吧 </div>
-            <div class="gvb_weather weather">{{ location }} 今日 {{ weather.weather }}天，{{ weather.temperature }}℃，{{
-                weather.tips }}</div>
+            <!-- <div class="gvb_weather weather">{{ location }} 今日 {{ weather.weather }}天，{{ weather.temperature }}℃，{{
+                weather.tips }}</div> -->
             <div class="statistics">
                 <span><icon-user-group /> <span>用户总数：{{ count.userCount }}</span></span>
                 <span><icon-book /> <span>文章总数：{{ count.articleCount }}</span></span>
                 <span><icon-message /> <span>评论总数：{{ count.commentCount }}</span></span>
                 <span><icon-command /> <span>景点总数：{{ count.siteCount }}</span></span>
             </div>
-            <div class="link">
+            <!-- <div class="link">
                 <div>友情链接：<a-link href="www.baidu.com">www.baidu.com</a-link></div>
                 <div>友情链接：<a-link href="www.baidu.com">www.baidu.com</a-link></div>
-            </div>
+            </div> -->
         </div>
 
         <div class="bottomContent">
