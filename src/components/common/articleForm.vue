@@ -5,7 +5,8 @@ import 'md-editor-v3/lib/style.css';
 import cover_cutter from '@/components/web/cover-cutter.vue'
 import type { articleRes, articleCreateReq } from '@/types/artrcle'
 import { userGetArticleDetailApi, createArticleApi } from '@/api/article'
-import {userGetTagListApi} from '@/api/tag'
+import { userGetTagListApi } from '@/api/tag'
+import type {tagQueryListReq,tagRes} from '@/types/tag'
 import { reactive } from "vue";
 import { Message } from "@arco-design/web-vue";
 import { initArticleFormMock, articleMockList } from "@/mock/articleMock";
@@ -52,7 +53,7 @@ if (props.articleId) {
     getData()
 }
 // 下拉菜单选项
-const tagOptions = ref<optionsType[]>([])
+const tagOptions = ref<string[]>([])
 const tags = ref<string[]>([])
 async function getData() {
     const res = await userGetArticleDetailApi(props.articleId as number)
@@ -83,16 +84,41 @@ async function getData() {
     //     })
     // }
     resData.tags?.forEach((item) => {
-        tagOptions.value.push({
-            label: item.name,
-            value: item.id
-        })
-        tags.value.push(item.id)
+        // tagOptions.value.push({
+        //     label: item.name,
+        //     value: item.id
+        // })
+        tagOptions.value.push(item.name)
+        tags.value.push(item.name)
     })
 
 }
-const createTag = () => {
-    console.log(tags.value)
+const tagSearchLoading = ref(false)
+const createTag =  (value: string) => {
+    if (value) {
+        const params = <tagQueryListReq>{
+            name: value
+        }
+        tagSearchLoading.value = true;
+        let tagTemp = []
+        window.setTimeout(async () => {
+            const res = await userGetTagListApi(params)
+            if (res.code){
+                Message.error(res.msg)
+            }
+            if (res.data.length === 0)  {
+                tagOptions.value = []
+            }else{
+                for (let index = 0; index < res.data.length; index++) {
+                    tagTemp.push(res.data[index].name)
+                }
+                tagOptions.value = tagTemp
+            }
+            tagSearchLoading.value = false;
+        }, 2000)
+    } else {
+        tagOptions.value = []
+    }
 }
 
 
@@ -186,7 +212,6 @@ const initData = async () => {
 
 // 初始化选中状态
 const initSelection = () => {
-    console.log(form)
     if (form.province_code) {
         selectedProvinceValue.value = form.province_code;
 
@@ -253,8 +278,8 @@ const handleProvinceChange = () => {
                         </template>
                     </a-form-item>
                     <a-form-item label="文章标签">
-                        <a-select allow-create allow-clear multiple :max-tag-count="4" :options="tagOptions"
-                            v-model="tags" :limit="5" placeholder="请输入标签" @change="createTag"></a-select>
+                        <a-select allow-create allow-clear multiple :loading="tagSearchLoading" :max-tag-count="4" :options="tagOptions"
+                            v-model="tags" :limit="5" placeholder="请输入标签" @search="createTag"></a-select>
                     </a-form-item>
                 </a-form>
             </a-collapse-item>

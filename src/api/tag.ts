@@ -41,7 +41,7 @@ export const getTagDetailApi = (id: number): Promise<baseResponse<tagRes>> =>
 export const getTagListApi = (params: tagQueryListReq): Promise<baseResponse<listResponse<tagRes[]>>> =>
   useAxios.get('/api/tag/query_list', { params });
 // 普通热呢获取标签列表API
-export const userGetTagListApi = (params: tagQueryListReq): Promise<baseResponse<listResponse<tagRes>>> =>
+export const userGetTagListApi = (params: tagQueryListReq): Promise<baseResponse<tagRes[]>> =>
   useAxios.get('/api/user/tag/query_list', { params });
 /**
  * 更新标签 API

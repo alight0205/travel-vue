@@ -74,7 +74,7 @@ export interface articleRes {
   // 城市代码
   city_code?: number;
   // 创建时间，必填，文章的创建时间（ISO 8601格式）
-  created_at?: string;
+  created_at: string;
   // 更新时间，必填，文章的更新时间（ISO 8601格式）
   updated_at?: string;
   // 审核状态（0-未通过，1-已通过，默认为1）
