@@ -15,7 +15,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 120px;
+    margin-top: 65px;
     background-color: var(--color-neutral-2);
 
     >.container {

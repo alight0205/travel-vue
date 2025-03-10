@@ -56,6 +56,6 @@ export interface commentsRes {
     province: string; // 省份代码
     city:string; // 城市代码
     examine_status:number; // 审核状态（0-未通过，1-已通过，默认为1）
-    created_at?: string; // 创建时间（可选）
-    updated_at?: string; // 更新时间（可选）
+    created_at: string; // 创建时间（可选）
+    updated_at: string; // 更新时间（可选）
 }

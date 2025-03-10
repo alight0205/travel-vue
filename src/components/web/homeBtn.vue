@@ -10,11 +10,11 @@ interface buttonListType {
 }
 // 标签内容
 const buttonList = ref<buttonListType[]>([
-    { title: "我要发贴", icon: "iconfont icon-yifatiezi", url: "" },
-    { title: "热门版块", icon: "iconfont icon-huoreremen", url: "" },
+    { title: "我要发贴", icon: "iconfont icon-fenleiliebiao", url: "articleAdd" },
+    { title: "个人资料", icon: "iconfont icon-yonghuxinxi-", url: "userInfo" },
+    { title: "我的文章", icon: "iconfont icon-yifatiezi", url: "myArticle" },
+    { title: "我的评论", icon: "iconfont icon-pinglun", url: "myComment" },
     { title: "站点公告", icon: "iconfont icon-gonggao", url: "" },
-    { title: "充值入口", icon: "iconfont icon-chongzhi", url: "" },
-    { title: "开通vip", icon: "iconfont icon-VIP", url: "" }
 ])
 
 // 点击跳转函数

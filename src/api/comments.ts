@@ -16,7 +16,7 @@ import type {
  * @returns 包含操作结果的 Promise
  */
 export const createCommentApi = (data: commentsCreateReq): Promise<baseResponse<string>> =>
-  useAxios.post('/api/comment/create', data);
+  useAxios.post('/api/user/comment/create', data);
 
 /**
  * 删除评论 API
@@ -24,6 +24,9 @@ export const createCommentApi = (data: commentsCreateReq): Promise<baseResponse<
  * @returns 包含操作结果的 Promise
  */
 export const adminDeleteCommentApi = (id: number): Promise<baseResponse<string>> =>
+  useAxios.post('/api/admin/comment/delete', { id });
+// 用户删除评论接口
+export const userDeleteCommentApi = (id: number): Promise<baseResponse<string>> =>
   useAxios.post('/api/admin/comment/delete', { id });
 
 /**
@@ -43,7 +46,9 @@ export const getCommentsByArticleApi = (articleId: number): Promise<baseResponse
  */
 export const adminGetCommentListApi = (params?: commentsListReq): Promise<baseResponse<listResponse<commentsRes>>> =>
   useAxios.get('/api/admin/comment/query_list', { params });
-
+// 普通用户获取评论列表 API
+export const userGetCommentListApi = (params?: commentsListReq): Promise<baseResponse<listResponse<commentsRes>>> =>
+  useAxios.get('/api/user/comment/query_list', { params });
 /**
  * 更新评论 API
  * @param data 需要更新的评论数据（包含评论 ID 和更新内容）

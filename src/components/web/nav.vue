@@ -16,9 +16,9 @@ if (puserStore.isLogin) {  // 如果用户已经登录
 // 导航菜单列表
 const menuList = [
     { title: '首页', value: 1, name: 'home' },  // 首页菜单项
-    { title: '热门文章', value: 2, name: '' },  // 热门文章菜单项
-    { title: '热门版块', value: 3, name: '' },  // 热门板块菜单项
-    { title: '个人中心', value: 3, name: 'userInfo' }  // 热门板块菜单项
+    { title: '景点/攻略', value: 2, name: '' },  // 热门文章菜单项
+    { title: '个人中心', value: 3, name: 'userInfo' },  // 热门板块菜单项
+    // { title: '热门版块', value: 4, name: '' },  // 热门板块菜单项
 ]
 
 // 响应式状态定义

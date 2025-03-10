@@ -57,7 +57,7 @@ const searchArticle = () => {
     getList({ title: searhValue.value })
 }
 const goDetail = (id:number)=>{
-    router.push(`/article/detail`)
+    router.push({name: 'articleDetail',query: { id }})
 }
 getList()
 </script>

@@ -10,6 +10,7 @@ import 'md-editor-v3/lib/preview.css';
 import Main from '@/components/common/Main.vue'
 import { userStore } from "@/stores/user-store";
 import { IconEdit } from "@arco-design/web-vue/es/icon";
+import articleComment from '@/components/common/articleComment.vue'
 const route = useRoute()
 const getArticleDetail = async () => {
     // 1. 加强类型校验
@@ -119,7 +120,7 @@ function goTop() {
 const articleCommentRef = ref()
 
 function goComment() {
-    const div = document.querySelector(".add_comment") as HTMLDivElement
+    const div = document.querySelector(".addComment") as HTMLDivElement
     const top = div.offsetTop
     document.documentElement.scrollTo({ top: top, behavior: "smooth" })
 
@@ -156,7 +157,7 @@ const goUser=(id:number)=>{
                     <MdPreview :id="`md_${data.id}`" :model-value="data.content"></MdPreview>
                 </div>
             </div>
-
+            <articleComment></articleComment>
             <!-- <article_comment ref="articleCommentRef" :article-id="Number(route.params.id)">
             </article_comment> -->
         </div>
@@ -167,22 +168,7 @@ const goUser=(id:number)=>{
                 </div>
                 <div class="nick" @click="goUser(data.creator)">用户昵称</div>
                 <div class="data">
-                    <div class="item">
-                        <span>1</span>
-                        <span><i class="iconfont icon-liulan"></i></span>
-                    </div>
-                    <div class="item">
-                        <span>1</span>
-                        <span><i class="iconfont icon-dianzan_kuai"></i></span>
-                    </div>
-                    <div class="item">
-                        <span>1</span>
-                        <span><i class="iconfont icon-shoucang1"></i></span>
-                    </div>
-                    <div class="item">
-                        <span>1</span>
-                        <span><i class="iconfont icon-pinglun1"></i></span>
-                    </div>
+                   <div class="desc">这是个人简介</div>
                 </div>
             </div>
             <div class="catalog_action" :class="{ isFixed: isFixed }">
@@ -194,10 +180,8 @@ const goUser=(id:number)=>{
                     </div>
                 </div>
                 <div class="article_action">
-                    <i title="点赞" class="iconfont icon-dianzan_kuai"></i>
-                    <i title="收藏"  class="iconfont icon-shoucang1"></i>
-                    <i title="回到顶部" @click="goTop" class="iconfont icon-zhiding">回到顶部</i>
-                    <i title="去评论" @click="goComment" class="iconfont icon-pinglun1">去评论</i>
+                    <i title="回到顶部" @click="goTop" class="iconfont icon-icon_zhiding"></i>
+                    <i title="去评论" @click="goComment" class="iconfont icon-pinglun1"></i>
                 </div>
             </div>
 
@@ -290,35 +274,13 @@ const goUser=(id:number)=>{
         }
 
         .data {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            .item {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                span:nth-child(1) {
-                    font-size: 16px;
-                    color: var(--color-text-1);
-                    margin-bottom: 3px;
-                }
-
-                i {
-                    font-size: 18px;
-                    color: var(--color-text-2);
-                }
-
-                .icon-liulan {
-                    font-size: 20px;
-                }
-
-                .icon-pinglun1 {
-                    font-size: 20px;
-                    margin-top: 3px;
-                }
+            .desc{
+                font-size: 12px;
+                color: var(--color-text-2);
             }
         }
     }
@@ -371,9 +333,8 @@ const goUser=(id:number)=>{
         background: var(--color-bg-1);
         border-radius: 5px;
         margin-top: 20px;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        justify-items: center;
+        display: flex;
+        justify-content: space-around;
         align-items: center;
         padding: 10px 0;
 

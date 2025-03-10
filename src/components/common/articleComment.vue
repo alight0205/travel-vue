@@ -16,34 +16,34 @@ import { reactive, ref, watch } from "vue";
 // }
 
 
-const props = defineProps<Props>()
+// const props = defineProps<Props>()
 
-const params = reactive<commentTreeRequest>({
+const params = reactive({
     limit: 10,
     page: 1,
     id: 0,
 })
 
-// const data = reactive<listResponse<commentTreeType>>({
-//     list: [],
-//     count: 0
-// })
+const data = reactive<listResponse<commentTreeType>>({
+    list: [],
+    count: 0
+})
 
-// async function getData() {
-//     params.id = props.articleId
-//     const res = await commentTreeApi(params)
-//     if (res.code) {
-//         Message.error(res.msg)
-//         return
-//     }
-//     data.list = res.data.list
-//     data.count = res.data.count
-// }
+async function getData() {
+    // params.id = props.articleId
+    // const res = await commentTreeApi(params)
+    // if (res.code) {
+    //     Message.error(res.msg)
+    //     return
+    // }
+    data.list = [{}]
+    data.count = 1
+}
 
 
-const form = reactive<commentCreateRequest>({
+const form = reactive({
     content: "",
-    articleID: props.articleId,
+    articleID: 1,
     parentID: undefined,
 })
 
