@@ -64,7 +64,8 @@ const reloadCommentsList = () => {
             <div class="left-section">我的评论</div>
         </div>
         <userCommentCard v-for="comment in data.list" :commentRes="comment" @delete="reloadCommentsList"></userCommentCard>
-        <div class="page">
+        <a-empty v-if="data.total === 0" />
+        <div class="page" v-else>
             <a-pagination show-total :total="data.total" v-model:current="params.page_num" :page-size="params.page_size"
                 @change="pageChange"/>
         </div>

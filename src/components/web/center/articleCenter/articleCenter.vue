@@ -73,7 +73,8 @@ getList()
         <div class="body">
             <articleCard no-avatar v-for="article in data.list" :article-res="article"></articleCard>
         </div>
-        <div class="page">
+        <a-empty v-if="data.total === 0" />
+        <div class="page" v-else>
             <a-pagination show-total :total="data.total" v-model:current="params.page_num" :page-size="params.page_size"
                 @change="pageChange" />
         </div>

@@ -1,32 +1,51 @@
 import type { articleRes } from '@/types/artrcle'
-import {userListMock} from '@/mock/userMock'
-import {siteListMock} from '@/mock/siteMock'
-import {articleCommentsMockList} from '@/mock/commentsMock'
-import {tagListMock} from '@/mock/tagMock'
-export const initArticleFormMock = <articleRes>{
+import { userListMock } from '@/mock/userMock'
+import { siteListMock } from '@/mock/siteMock'
+import { articleCommentsMockList } from '@/mock/commentsMock'
+import { tagListMock } from '@/mock/tagMock'
+// export const initArticleFormMock = <articleRes>{
+//     id: 0,
+//     // 文章标题，必填
+//     title: "",
+//     // 文章描述，选填，文章的简短描述
+//     desc: "",
+//     // 封面图片，选填，文章的封面图URL
+//     cover: "",
+//     // 文章内容，必填
+//     content: "",
+//     // 阅读数，必填，文章的初始阅读数
+//     read_num: 0,
+//     // 是否为首页横幅，选填，1表示是首页横幅，0表示不是
+//     is_banner: 0,
+//     // 创建时间，必填，文章的创建时间（ISO 8601格式）
+//     created_at: "",
+//     // 更新时间，必填，文章的更新时间（ISO 8601格式）
+//     updated_at: "",
+//     user_id:0,
+//     creator:0,
+//     // 标签信息
+//     tags:[],
+//     // 审核状态（0-未通过，1-已通过，默认为1）
+//     examine_status: 1, 
+// }
+// 确保 initArticleFormMock 是完全空的状态
+// 在 mock/articleMock.ts 中定义
+export const initArticleFormMock: articleRes = {
     id: 0,
-    // 文章标题，必填
-    title: "",
-    // 文章描述，选填，文章的简短描述
-    desc: "",
-    // 封面图片，选填，文章的封面图URL
-    cover: "",
-    // 文章内容，必填
-    content: "",
-    // 阅读数，必填，文章的初始阅读数
+    title: '',
+    desc: '',
+    cover: '',
+    content: '',
     read_num: 0,
-    // 是否为首页横幅，选填，1表示是首页横幅，0表示不是
     is_banner: 0,
-    // 创建时间，必填，文章的创建时间（ISO 8601格式）
-    created_at: "",
-    // 更新时间，必填，文章的更新时间（ISO 8601格式）
-    updated_at: "",
-    user_id:0,
-    // 标签信息
-    tags:[],
-    // 审核状态（0-未通过，1-已通过，默认为1）
-    examine_status: 1, 
-}
+    province_code: 0,
+    city_code: 0,
+    created_at: '',
+    updated_at: '',
+    creator: 0,
+    tags: [],
+    examine_status: 0
+};
 
 
 export const articleMockList = <articleRes[]>[
@@ -49,17 +68,17 @@ export const articleMockList = <articleRes[]>[
         // 更新时间，必填，文章的更新时间（ISO 8601格式）
         updated_at: "1546926630",
         // 省份代码
-        site : siteListMock[1],
+        site: siteListMock[1],
         // 用户信息
         user: userListMock[1],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[0],
             tagListMock[1]
         ],
-        examine: 1, 
+        examine: 1,
     },
     {
         id: 2,
@@ -84,18 +103,18 @@ export const articleMockList = <articleRes[]>[
         // 城市代码
         city_code: 370200,
         // 省份代码
-        site : siteListMock[2],
+        site: siteListMock[2],
         // 用户信息
         user: userListMock[2],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[3],
             tagListMock[4],
             tagListMock[5]
         ],
-        examine: 1, 
+        examine: 1,
     },
     {
         id: 3,
@@ -116,17 +135,17 @@ export const articleMockList = <articleRes[]>[
         // 更新时间，必填，文章的更新时间（ISO 8601格式）
         updated_at: "1546926630",
         // 省份代码
-        site : siteListMock[1],
+        site: siteListMock[1],
         // 用户信息
         user: userListMock[1],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[0],
             tagListMock[1]
         ],
-        examine: 1, 
+        examine: 1,
     },
     {
         id: 4,
@@ -147,17 +166,17 @@ export const articleMockList = <articleRes[]>[
         // 更新时间，必填，文章的更新时间（ISO 8601格式）
         updated_at: "1546926630",
         // 省份代码
-        site : siteListMock[1],
+        site: siteListMock[1],
         // 用户信息
         user: userListMock[1],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[0],
             tagListMock[1]
         ],
-        examine: 0, 
+        examine: 0,
     },
     {
         id: 5,
@@ -178,17 +197,17 @@ export const articleMockList = <articleRes[]>[
         // 更新时间，必填，文章的更新时间（ISO 8601格式）
         updated_at: "1546926630",
         // 省份代码
-        site : siteListMock[1],
+        site: siteListMock[1],
         // 用户信息
         user: userListMock[1],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[0],
             tagListMock[1]
         ],
-        examine: 0, 
+        examine: 0,
     },
     {
         id: 6,
@@ -209,17 +228,17 @@ export const articleMockList = <articleRes[]>[
         // 更新时间，必填，文章的更新时间（ISO 8601格式）
         updated_at: "1546926630",
         // 省份代码
-        site : siteListMock[1],
+        site: siteListMock[1],
         // 用户信息
         user: userListMock[1],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[0],
             tagListMock[1]
         ],
-        examine: 1, 
+        examine: 1,
     },
     {
         id: 7,
@@ -240,17 +259,17 @@ export const articleMockList = <articleRes[]>[
         // 更新时间，必填，文章的更新时间（ISO 8601格式）
         updated_at: "1546926630",
         // 省份代码
-        site : siteListMock[1],
+        site: siteListMock[1],
         // 用户信息
         user: userListMock[1],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[0],
             tagListMock[1]
         ],
-        examine: 0, 
+        examine: 0,
     },
     {
         id: 8,
@@ -271,17 +290,17 @@ export const articleMockList = <articleRes[]>[
         // 更新时间，必填，文章的更新时间（ISO 8601格式）
         updated_at: "1546926630",
         // 省份代码
-        site : siteListMock[1],
+        site: siteListMock[1],
         // 用户信息
         user: userListMock[1],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[0],
             tagListMock[1]
         ],
-        examine: 0, 
+        examine: 0,
     },
     {
         id: 9,
@@ -302,17 +321,17 @@ export const articleMockList = <articleRes[]>[
         // 更新时间，必填，文章的更新时间（ISO 8601格式）
         updated_at: "1546926630",
         // 省份代码
-        site : siteListMock[1],
+        site: siteListMock[1],
         // 用户信息
         user: userListMock[1],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[0],
             tagListMock[1]
         ],
-        examine: 1, 
+        examine: 1,
     },
     {
         id: 10,
@@ -333,17 +352,17 @@ export const articleMockList = <articleRes[]>[
         // 更新时间，必填，文章的更新时间（ISO 8601格式）
         updated_at: "1546926630",
         // 省份代码
-        site : siteListMock[1],
+        site: siteListMock[1],
         // 用户信息
         user: userListMock[1],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[0],
             tagListMock[1]
         ],
-        examine: 1, 
+        examine: 1,
     },
     {
         id: 11,
@@ -364,17 +383,17 @@ export const articleMockList = <articleRes[]>[
         // 更新时间，必填，文章的更新时间（ISO 8601格式）
         updated_at: "1546926630",
         // 省份代码
-        site : siteListMock[1],
+        site: siteListMock[1],
         // 用户信息
         user: userListMock[1],
         // 评论列表
         comments: articleCommentsMockList,
         // 标签信息
-        tag:[
+        tag: [
             tagListMock[0],
             tagListMock[1]
         ],
-        examine: 1, 
+        examine: 1,
     },
-    
+
 ]

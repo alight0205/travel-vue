@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import cover_cutter from '@/components/web/cover-cutter.vue'
 import type { articleRes, articleCreateReq } from '@/types/artrcle'
 import { userGetArticleDetailApi, createArticleApi } from '@/api/article'
 import { userGetTagListApi } from '@/api/tag'
-import type {tagQueryListReq,tagRes} from '@/types/tag'
+import type { tagQueryListReq, tagRes } from '@/types/tag'
 import { reactive } from "vue";
 import { Message } from "@arco-design/web-vue";
 import { initArticleFormMock, articleMockList } from "@/mock/articleMock";
@@ -46,6 +46,7 @@ const articleCreate = reactive<articleCreateReq>({
 interface Props {
     articleId?: number
     privonceOpen?: boolean
+    articleAdd?: number
 }
 // 接收父组件传递的参数
 const props = defineProps<Props>()
@@ -77,24 +78,14 @@ async function getData() {
     form.tags = resData.tags
     form.examine_status = resData.examine_status
     initData()
-    // for (let i in resData.tags) {
-    //     tagOptions.value.push({
-    //         label: resData.tags[i].name,
-    //         value: resData.tags[i].id
-    //     })
-    // }
     resData.tags?.forEach((item) => {
-        // tagOptions.value.push({
-        //     label: item.name,
-        //     value: item.id
-        // })
         tagOptions.value.push(item.name)
         tags.value.push(item.name)
     })
 
 }
 const tagSearchLoading = ref(false)
-const createTag =  (value: string) => {
+const createTag = (value: string) => {
     if (value) {
         const params = <tagQueryListReq>{
             name: value
@@ -103,12 +94,12 @@ const createTag =  (value: string) => {
         let tagTemp = []
         window.setTimeout(async () => {
             const res = await userGetTagListApi(params)
-            if (res.code){
+            if (res.code) {
                 Message.error(res.msg)
             }
-            if (res.data.length === 0)  {
+            if (res.data.length === 0) {
                 tagOptions.value = []
-            }else{
+            } else {
                 for (let index = 0; index < res.data.length; index++) {
                     tagTemp.push(res.data[index].name)
                 }
@@ -221,12 +212,36 @@ const initSelection = () => {
     }
 };
 
+// 重置表单数据
+const resetForm = () => {
+    form.title = ''
+    form.desc = ''
+    form.cover = ''
+    form.content = ''
+    form.province_code = 0
+    form.city_code = 0
+    form.creator = 0
+    form.tags = []
+
+    // 重置省份、城市选择
+    selectedProvinceValue.value = undefined;
+    selectedCityValue.value = undefined;
+
+    // 重置标签选择
+    tags.value = [];
+};
+
 // 处理省份变化
 const handleProvinceChange = () => {
     selectedCityValue.value = undefined;
 };
 
-
+onMounted(() => {
+    // 如果初始状态是添加模式，主动重置一次
+    if (!props.articleId) {
+        resetForm();
+    }
+});
 
 </script>
 
@@ -278,8 +293,9 @@ const handleProvinceChange = () => {
                         </template>
                     </a-form-item>
                     <a-form-item label="文章标签">
-                        <a-select allow-create allow-clear multiple :loading="tagSearchLoading" :max-tag-count="4" :options="tagOptions"
-                            v-model="tags" :limit="5" placeholder="请输入标签" @search="createTag"></a-select>
+                        <a-select allow-create allow-clear multiple :loading="tagSearchLoading" :max-tag-count="4"
+                            :options="tagOptions" v-model="tags" :limit="5" placeholder="请输入标签"
+                            @search="createTag"></a-select>
                     </a-form-item>
                 </a-form>
             </a-collapse-item>

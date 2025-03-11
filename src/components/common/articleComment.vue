@@ -1,7 +1,10 @@
 <script setup lang="ts">
 // import Comment_tree from "@/components/web/comment/comment_tree.vue";
 import { reactive, ref, watch } from "vue";
-// import type { listResponse, paramsType } from "@/api";
+import type { commentsRes } from '@/types/comments'
+import type { baseResponse, listResponse, paramsType } from "@/types/index";
+import { userGetCommentListApi } from '@/api/comments'
+import { Message } from "@arco-design/web-vue";
 // import {
 //     commentCreateApi,
 //     type commentCreateRequest,
@@ -11,33 +14,33 @@ import { reactive, ref, watch } from "vue";
 // } from "@/api/comment_api";
 // import { Message } from "@arco-design/web-vue";
 
-// interface Props {
-//     articleId: number
-// }
+interface Props {
+    articleId: number
+}
 
 
-// const props = defineProps<Props>()
+const props = defineProps<Props>()
 
 const params = reactive({
-    limit: 10,
-    page: 1,
+    // limit: 10,
+    // page: 1,
     id: 0,
 })
 
-const data = reactive<listResponse<commentTreeType>>({
+const data = reactive<listResponse<commentsRes>>({
     list: [],
-    count: 0
+    total: 0
 })
 
 async function getData() {
-    // params.id = props.articleId
-    // const res = await commentTreeApi(params)
-    // if (res.code) {
-    //     Message.error(res.msg)
-    //     return
-    // }
-    data.list = [{}]
-    data.count = 1
+    params.id = props.articleId
+    const res = await userGetCommentListApi(params)
+    if (res.code) {
+        Message.error(res.msg)
+        return
+    }
+    data.list = res.data.list
+    data.total = res.data.total
 }
 
 

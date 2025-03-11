@@ -12,13 +12,13 @@ import { userStore } from "@/stores/user-store";
 import { IconEdit } from "@arco-design/web-vue/es/icon";
 import articleComment from '@/components/common/articleComment.vue'
 const route = useRoute()
+const router = useRouter()
 const getArticleDetail = async () => {
     // 1. 加强类型校验
     const idParam = route.query.id
 
     // 处理数组类型参数（如?id=1&id=2）
     const paramValue = Array.isArray(idParam) ? idParam[0] : idParam
-    console.log(paramValue)
 
     if (!paramValue) {
         Message.error('文章ID不能为空')
@@ -130,7 +130,7 @@ function goComment() {
 }
 
 const goArticleEdit = (id:number)=>{
-    Message.success("前往文章编辑"+id)
+    router.push({ path: '/article/edit', query: { id } })
 }
 const goUser=(id:number)=>{
     Message.success("前往用户"+id)
@@ -157,7 +157,7 @@ const goUser=(id:number)=>{
                     <MdPreview :id="`md_${data.id}`" :model-value="data.content"></MdPreview>
                 </div>
             </div>
-            <articleComment></articleComment>
+            <articleComment :article-id="Number(route.params.id)"></articleComment>
             <!-- <article_comment ref="articleCommentRef" :article-id="Number(route.params.id)">
             </article_comment> -->
         </div>

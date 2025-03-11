@@ -65,6 +65,11 @@ const router = createRouter({
               name:"articleAdd",
               path:"create",
               component:()=>import("@/views/web/article/articleAdd.vue")
+            },
+            {
+              name:"articleEdit",
+              path:"edit",
+              component:()=>import("@/views/web/article/articleEdit.vue")
             }
           ]
         }
