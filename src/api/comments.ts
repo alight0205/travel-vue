@@ -47,7 +47,7 @@ export const getCommentsByArticleApi = (articleId: number): Promise<baseResponse
 export const adminGetCommentListApi = (params?: commentsListReq): Promise<baseResponse<listResponse<commentsRes>>> =>
   useAxios.get('/api/admin/comment/query_list', { params });
 // 普通用户获取文章评论列表 API
-export const userGetCommentListByArticleApi = (params?: commentsListReq): Promise<baseResponse<listResponse<commentsRes>>> =>
+export const userGetCommentListByArticleApi = (params?: commentsListReq): Promise<baseResponse<commentsRes[]>> =>
   useAxios.get('/api/user/comment/query_list_by_article', { params });
 // 普通用户获取评论列表 API
 export const userGetCommentListApi = (params?: commentsListReq): Promise<baseResponse<listResponse<commentsRes>>> =>

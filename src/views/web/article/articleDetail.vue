@@ -41,6 +41,7 @@ const getArticleDetail = async () => {
     Object.assign(data, res.data)
 }
 const title = ref('')
+const articleId = ref(0)
 
 const scrollElement = document.documentElement;
 
@@ -79,7 +80,8 @@ const data = reactive({
 })
 
 
-watch(() => route.params.id, () => {
+watch(() => route.query.id, () => {
+    articleId.value = Number(route.query.id)
     getArticleDetail()
 }, { immediate: true })
 
@@ -157,7 +159,7 @@ const goUser=(id:number)=>{
                     <MdPreview :id="`md_${data.id}`" :model-value="data.content"></MdPreview>
                 </div>
             </div>
-            <articleComment :article-id="Number(route.params.id)"></articleComment>
+            <articleComment ref="articleCommentRef" :article-id="articleId"></articleComment>
             <!-- <article_comment ref="articleCommentRef" :article-id="Number(route.params.id)">
             </article_comment> -->
         </div>

@@ -1,18 +1,14 @@
 <script setup lang="ts">
 // import Comment_tree from "@/components/web/comment/comment_tree.vue";
 import { reactive, ref, watch } from "vue";
-import type { commentsRes } from '@/types/comments'
+import type { commentsRes, CommentTreeType,commentsCreateReq } from '@/types/comments'
 import type { baseResponse, listResponse, paramsType } from "@/types/index";
-import { userGetCommentListApi } from '@/api/comments'
+import { userGetCommentListByArticleApi,createCommentApi } from '@/api/comments'
 import { Message } from "@arco-design/web-vue";
-// import {
-//     commentCreateApi,
-//     type commentCreateRequest,
-//     commentTreeApi,
-//     type commentTreeRequest,
-//     type commentTreeType
-// } from "@/api/comment_api";
-// import { Message } from "@arco-design/web-vue";
+import commentsTree from '@/components/web/article/articleCommentsTree.vue'
+import {userStore} from '@/stores/user-store'
+const user = userStore()
+user.loadUserInfo()
 
 interface Props {
     articleId: number
@@ -24,60 +20,85 @@ const props = defineProps<Props>()
 const params = reactive({
     // limit: 10,
     // page: 1,
-    id: 0,
+    article_id: 0,
 })
 
-const data = reactive<listResponse<commentsRes>>({
-    list: [],
-    total: 0
-})
+const data = ref<commentsRes[]>([])
+const comments = ref<CommentTreeType[]>([])
+// 转换函数
+const buildCommentTree = (comments: commentsRes[]): CommentTreeType[] => {
+  const map = new Map<number, CommentTreeType>()
+  const roots: CommentTreeType[] = []
 
+  // 创建哈希映射
+  comments.forEach(comment => {
+    map.set(comment.id, { ...comment, subComments: [] })
+  })
+
+  // 构建树结构
+  map.forEach(comment => {
+    if (comment.comment_id === 0) {
+      roots.push(comment)
+    } else {
+      const parent = map.get(comment.comment_id)
+      parent?.subComments?.push(comment)
+    }
+  })
+
+  return roots
+}
 async function getData() {
-    params.id = props.articleId
-    const res = await userGetCommentListApi(params)
+    params.article_id = props.articleId
+    const res = await userGetCommentListByArticleApi(params)
     if (res.code) {
         Message.error(res.msg)
         return
     }
-    data.list = res.data.list
-    data.total = res.data.total
+    data.value = buildCommentTree(res.data)
+    comments.value = buildCommentTree(res.data)
+    console.log(comments.value)
+
 }
 
 
-const form = reactive({
+const form = reactive<commentsCreateReq>({
     content: "",
-    articleID: 1,
-    parentID: undefined,
+    user_id: 0,
+    article_id: 1,
+    comment_id: 0,
 })
 
 async function create() {
-    // form.articleID = props.articleId
-    // if (form.content.trim() === "") {
-    //     Message.warning("请输入评论内容")
-    //     return
-    // }
-    // const res = await commentCreateApi(form)
-    // if (res.code) {
-    //     Message.error(res.msg)
-    //     return
-    // }
-    // Message.success(res.msg)
-    // getData()
-    // form.content = ""
+    form.comment_id = 0
+    form.article_id = props.articleId
+    form.user_id = user.userInfo.id
+    if (form.content.trim() === "") {
+        Message.warning("请输入评论内容")
+        return
+    }
+    const res = await createCommentApi(form)
+    if (res.code) {
+        Message.error(res.msg)
+        return
+    }
+    Message.success(res.msg)
+    getData()
+    form.content = ""
+    form.user_id = 0
     console.log("创建评论成功")
 }
 
-// watch(() => props.articleId, () => {
-//     getData()
-// }, { immediate: true })
+watch(() => props.articleId, () => {
+    getData()
+}, { immediate: true })
 
-// const textareaRef = ref()
+const textareaRef = ref()
 
-// function focus() {
-//     textareaRef.value.focus()
-// }
+function focus() {
+    textareaRef.value.focus()
+}
 
-// defineExpose({ focus })
+defineExpose({ focus })
 </script>
 
 <template>
@@ -88,11 +109,11 @@ async function create() {
             <a-button type="primary" @click="create" size="mini">发布评论</a-button>
         </div>
         <div class="commentList">
-            <comment_tree :line="1" @ok="getData" :list="data.list"></comment_tree>
-            <div class="page" v-if="data.list.length">
+            <commentsTree :line="1" @ok="getData" :list="comments"></commentsTree>
+            <!-- <div class="page" v-if="data.list.length">
                 <a-pagination @change="getData" :page-size="params.limit" :total="data.count" show-total
                     v-model:current="params.page"></a-pagination>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -115,7 +136,7 @@ async function create() {
         }
     }
 
-    .comment_list {
+    .commentList {
         padding: 0 20px 20px 20px;
 
         .arco-comment-inner-comment {
