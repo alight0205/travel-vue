@@ -7,7 +7,7 @@ interface Props {
     noAvatar?: boolean
     noBan?: boolean
     noAction?: boolean
-    articleRes?: articleRes
+    articleRes: articleRes
 }
 const props = defineProps<Props>()
 interface DorpDownOptionsType {
@@ -57,13 +57,13 @@ const handleSelect = (value: number) => {
             </template>
             <template #description>
                 <div class="description">{{ props.articleRes?.desc }}</div>
-                <div class="created_at">2006-06-11</div>
+                <div class="created_at">{{ dataTemFormat(props.articleRes.created_at, 'date') }}</div>
             </template>
             <template #avatar>
                 <div v-if="!noAvatar" class="avatar">
-                    <a-avatar :image-url="props.articleRes?.userRes?.avatar" :size="24" :style="{ marginRight: '8px' }">
+                    <a-avatar :image-url="props.articleRes?.user.avatar" :size="24" :style="{ marginRight: '8px' }">
                     </a-avatar>
-                    <a-typography-text>{{ props.articleRes?.userRes?.username }}</a-typography-text>
+                    <a-typography-text>{{ props.articleRes?.user.username }}</a-typography-text>
                 </div>
                 <div v-if="!noBan" class="ban">
                     <a-tag color="red" v-if="props.articleRes?.examine_status === 0">封禁中</a-tag>
@@ -93,6 +93,7 @@ const handleSelect = (value: number) => {
         width: 100%;
         border-radius: 5px;
         overflow: hidden;
+        height: 130px;
 
         img {
             width: 100%;

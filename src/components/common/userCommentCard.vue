@@ -41,13 +41,13 @@ const goArticleDetail = (id: number) => {
 
 <template>
     <div class="commentCard">
-        <div class="commentContent">{{ props.commentRes.content }}</div>
+        <div class="commentContent" @click="goArticleDetail(props.commentRes.article_id)">{{ props.commentRes.content }}</div>
         <div class="commentBottom">
             <div class="articleInfo">
                 <div class="date">{{ dataTemFormat(props.commentRes.created_at, "datetime") }}</div>
                 <div class="split">·</div>
-                <div class="articleTitle" @click="goArticleDetail(props.commentRes.article_id)">Hack The Box-Office{{
-                    props.commentRes.article_id }}</div>
+                <div class="articleTitle" @click="goArticleDetail(props.commentRes.article_id)">{{
+                    props.commentRes.title}}</div>
                 <div class="status">
                     <a-tag color="red" v-if="props.commentRes.examine_status === 0">封禁中</a-tag>
                     <a-tag color="green" v-else>正常</a-tag>

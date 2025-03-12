@@ -40,15 +40,8 @@ async function getList(newParams?: paramsType) {
         return
     }
     // 请求成功，更新列表数据和总数
-    data.list = res.data.list || []
+    data.list = res.data.list
     data.total = res.data.total
-    for (let i = 0; i < data.list.length; i++) {
-        const userRes = await userGetUserDetailApi(data.list[i].creator)
-        if (userRes.code) {
-            Message.error(userRes.msg)
-        }
-        data.list[i].userRes = userRes.data
-    }
 }
 // 分页切换函数
 function pageChange() {

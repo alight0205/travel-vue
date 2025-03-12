@@ -79,7 +79,7 @@ export interface articleRes {
   updated_at?: string;
   // 审核状态（0-未通过，1-已通过，默认为1）
   examine_status?: number;
-  userRes?: userRes;
+  user: userRes;
   // 标签信息
   tags: tagRes[]
 

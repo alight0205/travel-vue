@@ -31,7 +31,7 @@ export interface commentsUpdateReq extends commentsCreateReq {
  */
 export interface commentsListReq extends paramsType {
     id?: number;        // 评论 ID（可选）
-    user_id?: string;   // 账号（可选）
+    creator?: string;   // 账号（可选）
     province_code?: int;  // 省份代码（可选）
     city_code?: int; // 城市代码（可选）
     examine?: int; // 审核状态（0-未通过，1-已通过，默认为1）
@@ -58,4 +58,7 @@ export interface commentsRes {
     examine_status:number; // 审核状态（0-未通过，1-已通过，默认为1）
     created_at: string; // 创建时间（可选）
     updated_at: string; // 更新时间（可选）
+    nickname:string;
+    avatar:string;
+    title:string;
 }

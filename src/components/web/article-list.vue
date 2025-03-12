@@ -39,15 +39,8 @@ async function getList(newParams?: paramsType) {
         return
     }
     // 请求成功，更新列表数据和总数
-    data.list = res.data.list || []
+    data.list = res.data.list
     data.total = res.data.total
-    for (let i = 0; i < data.list.length; i++) {
-        const userRes = await userGetUserDetailApi(data.list[i].creator)
-        if (userRes.code) {
-            Message.error(userRes.msg)
-        }
-        data.list[i].userRes = userRes.data
-    }
 }
 // 分页切换函数
 function pageChange() {
@@ -94,11 +87,11 @@ getList()
 
                                 <span class="date">
                                     <icon-clock-circle />
-                                    {{ dataTemFormat(article.created_at || '2006-06-06', 'date') }}
+                                    {{ dataTemFormat(article.created_at, 'date') }}
                                 </span>
                                 <span class="userInfo">
-                                    <a-avatar :image-url="article.userRes?.avatar" class="avatar" :size="30"></a-avatar>
-                                    <span class="username">{{ article.userRes?.nickname }}</span>
+                                    <a-avatar :image-url="article.user?.avatar" class="avatar" :size="30"></a-avatar>
+                                    <span class="username">{{ article.user?.nickname }}</span>
                                 </span>
                             </div>
                             <div class="data" v-if="article.tags.length  > 2">
@@ -109,11 +102,11 @@ getList()
                                 </span>
                                 <span class="date">
                                     <icon-clock-circle />
-                                    {{ dataTemFormat(article.created_at || '2006-06-06', 'date') }}
+                                    {{ dataTemFormat(article.created_at, 'date') }}
                                 </span>
                                 <span class="userInfo">
-                                    <a-avatar :image-url="article.userRes?.avatar" class="avatar" :size="30"></a-avatar>
-                                    <span class="username">{{ article.userRes?.nickname }}</span>
+                                    <a-avatar :image-url="article.user?.avatar" class="avatar" :size="30"></a-avatar>
+                                    <span class="username">{{ article.user?.nickname }}</span>
                                 </span>
                             </div>
                         </div>

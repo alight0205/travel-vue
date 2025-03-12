@@ -6,7 +6,9 @@ import { userGetCommentListApi,userDeleteCommentApi } from '@/api/comments'
 import type { commentsRes,commentsListReq } from '@/types/comments'
 import { Message } from '@arco-design/web-vue';
 import router from '@/router'
-
+import { userStore } from '@/stores/user-store'
+const user = userStore()
+user.loadUserInfo()
 // 使用reactive定义响应式数据，存储列表数据和总数
 const data = reactive<listResponse<commentsRes>>({
     list: [], // 列表数据
@@ -29,6 +31,7 @@ async function getList(newParams?: paramsType) {
     if (newParams) {
         Object.assign(params, newParams)
     }
+    params.creator = user.userInfo.id
     // 调用传入的URL函数获取数据
     const res = await userGetCommentListApi(params)
     // 请求后取消加载状态
@@ -39,7 +42,7 @@ async function getList(newParams?: paramsType) {
         return
     }
     // 请求成功，更新列表数据和总数
-    data.list = res.data.list || []
+    data.list = res.data.list
     data.total = res.data.total
 }
 // 分页切换函数
