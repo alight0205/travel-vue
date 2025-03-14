@@ -265,7 +265,7 @@ const search = (value: number) => {
 </template>
 
 
-<style lang="less">
+<style lang="less" scoped>
 .cover {
     height: 110px;
     width: 110px;

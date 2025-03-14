@@ -10,7 +10,7 @@
 </template>
 
 
-<style lang="less">
+<style lang="less" scoped>
 .mainCom {
     width: 100%;
     display: flex;

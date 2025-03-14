@@ -58,4 +58,4 @@ export const userUpdateUserApi = (data: userUpdateReq): Promise<baseResponse<str
 
 // 普通用户获取其他用户详情
 export const userGetUserDetailApi = (id: number): Promise<baseResponse<userRes>> =>
-  useAxios.post('/api/user/user/detail', { id });
+  useAxios.get('/api/user/user/detail', {params:{ id }});

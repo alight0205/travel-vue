@@ -72,6 +72,18 @@ const router = createRouter({
               component:()=>import("@/views/web/article/articleEdit.vue")
             }
           ]
+        },
+        {
+          name:"user",
+          path:"user",
+          component:()=>import("@/views/web/user/indx.vue"),
+          children:[
+            {
+              name:"userDetail",
+              path:"detail",
+              component:()=>import("@/views/web/user/userDetail.vue")
+            }
+          ]
         }
       ]
     },

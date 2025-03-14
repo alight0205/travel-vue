@@ -135,13 +135,13 @@ const goArticleEdit = (id:number)=>{
     router.push({ path: '/article/edit', query: { id } })
 }
 const goUser=(id:number)=>{
-    Message.success("前往用户"+id)
+   router.push({ path: '/user/detail', query: { id } })
 }
 
 </script>
 
 <template>
-    <Main>
+    <Main >
         <div class="articleContainer">
             <div class="article_content">
                 <div class="head">
