@@ -53,7 +53,7 @@ const goDetail = (id:number)=>{
     router.push({name: 'articleDetail',query: { id }})
 }
 const goUser = (id:number)=>{
-    router.push({path: 'userDetail',query: { id }})
+    router.push({name: 'userDetail',query: { id }})
 }
 getList()
 </script>
@@ -92,7 +92,7 @@ getList()
                                     <icon-clock-circle />
                                     {{ dataTemFormat(article.created_at, 'date') }}
                                 </span>
-                                <span class="userInfo">
+                                <span class="userInfo" @click="goUser(article.creator)">
                                     <a-avatar :image-url="article.user?.avatar" class="avatar" :size="30"></a-avatar>
                                     <span class="username">{{ article.user?.nickname }}</span>
                                 </span>

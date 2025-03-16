@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import { dataTemFormat, type dataTimeType } from "@/utils/date"
 import router from '@/router'
+import type { articleRes } from '@/types/artrcle'
 interface Props {
-    articleRes: any
+    articleRes: articleRes
+    authorDisplay?: boolean
 }
 const props = defineProps<Props>()
+const emits = defineEmits<{
+    'close': [modalstatus:boolean]
+}>()
 const goDetail = (id: number) => {
     router.push({ name: 'articleDetail', query: { id } })
+    emits("close",true)
+}
+const goUser = (id: number) => {
+    router.push({ name: 'userDetail', query: { id } })
+    emits("close",true)
 }
 </script>
 
@@ -23,6 +33,13 @@ const goDetail = (id: number) => {
                     <a-tag class="tag" v-for="tag in props.articleRes.tags">{{ tag.name }}</a-tag>
                 </div>
                 <div class="date">发布于{{ dataTemFormat(props.articleRes.created_at, "current") }}</div>
+                <div class="author" v-if="props.authorDisplay" @click="goUser(props.articleRes.user.id)">
+                    <div class="avatar">
+                        <a-avatar :image-url="props.articleRes.user.avatar"></a-avatar>
+                    </div>
+                    <div class="nick">{{ props.articleRes.user.nickname }}</div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -33,6 +50,7 @@ const goDetail = (id: number) => {
     display: flex;
     position: relative;
     padding: 10px 20px;
+    width: 100%;
 
     &:hover {
         background: var(--color-fill-1);
@@ -68,6 +86,7 @@ const goDetail = (id: number) => {
             display: flex;
             align-items: center;
             color: var(--color-text-2);
+            width: 100%;
 
             .tags {
                 .tag {
@@ -77,6 +96,17 @@ const goDetail = (id: number) => {
 
             .date {
                 color: var(--color-text-2);
+            }
+
+            .author {
+                margin-left: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+
+                .avatar {
+                    margin-right: 10px;
+                }
             }
         }
     }

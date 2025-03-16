@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';  // 引入Vue的核心函数
+import { ref, reactive } from 'vue';  // 引入Vue的核心函数
 import { useRouter, useRoute } from 'vue-router';  // 用于路由跳转
 import { Modal, Message } from '@arco-design/web-vue';  // 引入ArcoDesign组件库中的Modal和Message组件
 import { userStore } from '@/stores/user-store';  // 导入用户状态管理store
-import { idText } from 'typescript';  // 引入typescript的idText（不确定是否用到）
+import userDetail from '@/components/web/user/userArticle.vue'
+import type { articleRes } from '@/types/artrcle'
+import type { listResponse, paramsType } from "@/types/index"
+import { getArticleListApi } from '@/api/article'
 
 const router = useRouter();  // 获取router实例，用于路由跳转
 const puserStore = userStore();  // 获取用户store实例
@@ -61,7 +64,7 @@ const handleDropdownVisible = (visible: boolean) => {
 
 // 用户中心跳转处理函数
 const handleUserCenter = () => {
-    router.push({ name: 'userInfo'});  // 跳转到用户中心（此处被注释掉）
+    router.push({ name: 'userInfo' });  // 跳转到用户中心（此处被注释掉）
     console.log("前往用户中心");  // 打印日志
 };
 
@@ -74,9 +77,76 @@ const route = useRoute()
 const isActive = (routeName: string) => {
     return route.name === routeName
 }
+const data = reactive<listResponse<articleRes>>({
+    list: [], // 列表数据
+    total: 0   // 数据总数
+})
+const searchModal = ref(false)
+const searchData = ref({
+    searchArticleByTitle: '',
+})
+// 数据加载中状态
+const loading = ref(false)
+// 使用reactive定义请求参数
+const params = reactive<paramsType>({
+    // 请求参数，可以根据实际需求扩展
+    page_size: 10,
+    page_num: 1
+})
+// 获取列表数据的异步函数
+async function getList(newParams?: paramsType) {
+    if (newParams) {
+        Object.assign(params, newParams)
+    }
+    // 调用传入的URL函数获取数据
+    const res = await getArticleListApi(params)
+    // 请求后取消加载状态
+    loading.value = false
+    // 如果返回的code不为0，表示请求失败，显示错误信息
+    if (res.code) {
+        Message.error(res.msg)
+        return
+    }
+    // 请求成功，更新列表数据和总数
+    data.list = res.data.list
+    data.total = res.data.total
+}
+
+// 分页切换函数
+function pageChange() {
+    getList()
+}
+const searchArticle = () => {
+    getList({ title: searchData.value.searchArticleByTitle })
+}
+const closeModel = () => {
+    searchModal.value = false
+}
+
 </script>
 
 <template>
+    <a-modal v-model:visible="searchModal" width="50%">
+        <template #title>
+            <div class="searchTitle">搜索文章</div>
+        </template>
+        <div class="search">
+            <a-input-search v-model="searchData.searchArticleByTitle" placeholder="请输入搜索的文章标题"
+                class="searchByArticleTitle" @search="searchArticle" />
+        </div>
+        <div class="articleList">
+            <div class="info" v-if="data.total != 0">
+                <userDetail v-for="article in data.list" :articleRes="article" :authorDisplay="true" @close="closeModel"></userDetail>
+                <div class="page">
+                    <a-pagination show-total :total="data.total" v-model:current="params.page_num"
+                        :page-size="params.page_size" @change="pageChange" />
+                </div>
+            </div>
+            <div class="empty" v-else>
+                <a-empty />
+            </div>
+        </div>
+    </a-modal>
     <div class="nav-container">
         <div class="nav-content">
             <!-- 左侧logo -->
@@ -86,15 +156,15 @@ const isActive = (routeName: string) => {
 
             <!-- 中间菜单 -->
             <div class="center-section">
-                <div class="menu" v-for="menu in menuList" :class="{ 'active-menu': isActive(menu.name) }" :key="menu.value" @click.stop="router.push({ name: menu.name })">
+                <div class="menu" v-for="menu in menuList" :class="{ 'active-menu': isActive(menu.name) }"
+                    :key="menu.value" @click.stop="router.push({ name: menu.name })">
                     {{ menu.title }} <!-- 遍历菜单列表并显示标题 -->
                 </div>
             </div>
             <!-- 右侧功能区 -->
             <div class="right-section">
                 <!-- 搜索框 -->
-                <a-input-search v-model="searchKey" placeholder="请输入搜索内容" class="search-input" @search="handleSearch" />
-
+                <icon-search @click="searchModal = true"></icon-search>
                 <template v-if="!puserStore.isLogin"> <!-- 如果用户未登录 -->
                     <a-button type="text" @click="navigateTo(false)">登录</a-button>
                     <a-button type="primary" @click="navigateTo(true)">注册</a-button>
@@ -146,6 +216,20 @@ const isActive = (routeName: string) => {
 </template>
 
 <style lang="less">
+.arco-modal-footer{
+    display: none;
+}
+.info {
+    .page {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        background-color: var(--color-bg-1);
+        padding: 20px 10px;
+        border-radius: 5px;
+    }
+}
+
 .nav-container {
     width: 100%;
     height: 65px;
@@ -187,23 +271,24 @@ const isActive = (routeName: string) => {
                     color: @primary-5;
                 }
             }
-            .active-menu {
-                    color: @primary-6 !important;
-                    font-weight: 500;
-                    position: relative;
 
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        bottom: -8px;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        width: 60%;
-                        height: 2px;
-                        background: @primary-6;
-                        border-radius: 1px;
-                    }
+            .active-menu {
+                color: @primary-6 !important;
+                font-weight: 500;
+                position: relative;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -8px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 60%;
+                    height: 2px;
+                    background: @primary-6;
+                    border-radius: 1px;
                 }
+            }
         }
 
         .right-section {

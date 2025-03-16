@@ -45,7 +45,6 @@ const articleId = ref(0)
 
 const scrollElement = document.documentElement;
 
-
 const store = userStore()
 const data = reactive({
     // 文章id
@@ -131,17 +130,17 @@ function goComment() {
     }, 800)
 }
 
-const goArticleEdit = (id:number)=>{
+const goArticleEdit = (id: number) => {
     router.push({ path: '/article/edit', query: { id } })
 }
-const goUser=(id:number)=>{
-   router.push({ path: '/user/detail', query: { id } })
+const goUser = (id: number) => {
+    router.push({ path: '/user/detail', query: { id } })
 }
 
 </script>
 
 <template>
-    <Main >
+    <Main>
         <div class="articleContainer">
             <div class="article_content">
                 <div class="head">
@@ -166,11 +165,18 @@ const goUser=(id:number)=>{
         <div class="article_info">
             <div class="user_info">
                 <div class="user">
-                    <a-avatar @click="goUser(data.creator)" :size="60" image-url="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"></a-avatar>
+                    <a-avatar @click="goUser(data.creator)" :size="60" :image-url="data.user?.avatar"></a-avatar>
                 </div>
-                <div class="nick" @click="goUser(data.creator)">用户昵称</div>
+                <div class="nick" @click="goUser(data.creator)">{{ data.user?.nickname }}</div>
                 <div class="data">
-                   <div class="desc">这是个人简介</div>
+                    <span>
+                        <span>0</span>
+                        <span>粉丝</span>
+                    </span>
+                    <span>
+                        <span>0</span>
+                        <span>关注</span>
+                    </span>
                 </div>
             </div>
             <div class="catalog_action" :class="{ isFixed: isFixed }">
@@ -273,6 +279,7 @@ const goUser=(id:number)=>{
         .nick {
             margin: 10px 0 20px 0;
             color: var(--color-text-1);
+            cursor: pointer;
         }
 
         .data {
@@ -280,7 +287,22 @@ const goUser=(id:number)=>{
             align-items: center;
             justify-content: center;
 
-            .desc{
+            >span {
+                margin-right: 20px;
+
+                :nth-child(1) {
+                    font-size: 18px;
+                    color: var(--color-text-1);
+                    font-weight: 600;
+                    margin-right: 5px;
+                }
+
+                :nth-child(2) {
+                    color: var(--color-text-2);
+                }
+            }
+
+            .desc {
                 font-size: 12px;
                 color: var(--color-text-2);
             }

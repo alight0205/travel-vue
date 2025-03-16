@@ -129,7 +129,7 @@ getUserDetail()
                         @search="searchArticle()" />
                 </template>
                 <a-tab-pane key="1" title="他的文章">
-                    <div class="info" v-if="true">
+                    <div class="info" v-if="data.total != 0">
                         <userDetail v-for="article in data.list" :articleRes="article"></userDetail>
                         <div class="page">
                             <a-pagination show-total :total="data.total" v-model:current="params.page_num"
