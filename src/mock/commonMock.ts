@@ -1,12 +1,12 @@
 // 中国省级行政区类型
-type Province = {
+export type Province = {
     name: string
     value: number
     city: City[]
 }
 
 // 地级市类型
-type City = {
+export type City = {
     name: string
     value: number
     site?: Site[]

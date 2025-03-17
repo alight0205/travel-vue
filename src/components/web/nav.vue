@@ -131,7 +131,7 @@ const closeModel = () => {
             <div class="searchTitle">搜索文章</div>
         </template>
         <div class="search">
-            <a-input-search v-model="searchData.searchArticleByTitle" placeholder="请输入搜索的文章标题"
+            <a-input-search v-model="searchData.searchArticleByTitle" placeholder="请输入标题"
                 class="searchByArticleTitle" @search="searchArticle" />
         </div>
         <div class="articleList">

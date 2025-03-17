@@ -76,7 +76,7 @@ const router = createRouter({
         {
           name:"user",
           path:"user",
-          component:()=>import("@/views/web/user/indx.vue"),
+          component:()=>import("@/views/web/user/index.vue"),
           children:[
             {
               name:"userDetail",
@@ -84,6 +84,11 @@ const router = createRouter({
               component:()=>import("@/views/web/user/userDetail.vue")
             }
           ]
+        },
+        {
+          name:"place",
+          path:"place",
+          component:()=>import("@/views/web/place/index.vue"),
         }
       ]
     },

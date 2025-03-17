@@ -46,6 +46,16 @@ export const adminGetSiteListApi = (params?: siteListReq): Promise<baseResponse<
   return useAxios.get('/api/admin/site/query_list', { params });
 };
 
+
+/**
+ * 获取景点列表 API
+ * @param params 包含分页信息和查询条件的请求参数
+ * @returns 分类列表数据的 Promise
+ */
+export const userGetSiteListApi = (params?: siteListReq): Promise<baseResponse<siteRes[]>> => {
+  return useAxios.get('/api/user/site/query_list', { params });
+};
+
 /**
  * 更新景点 API
  * @param params 包含分类 ID 和更新内容的请求数据

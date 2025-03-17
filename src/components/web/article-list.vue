@@ -61,9 +61,9 @@ getList()
 <template>
     <div class="articleCard">
         <div class="head">
-            <div class="title">文章列表</div>
+            <div class="title">游记攻略</div>
             <div class="right">
-                <a-input-search v-model="searhValue" placeholder="搜索文章标题" @search="searchArticle()" />
+                <a-input-search v-model="searhValue" placeholder="请输入标题" @search="searchArticle()" />
             </div>
         </div>
         <a-spin dot v-if="data.total" :loading="loading">
