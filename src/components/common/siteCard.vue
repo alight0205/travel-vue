@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import type { siteRes } from '@/types/site'
 import { provinceData } from '@/mock/commonMock'
 interface Props {
-    currentSite: siteRes
+    currentSite?: siteRes
 }
 const props = defineProps<Props>()
 const provinceList = ref(provinceData)
