@@ -73,7 +73,10 @@ const data = reactive({
     updated_at: '',
     // 审核状态（0-未通过，1-已通过，默认为1）
     examine_status: 0,
-    userRes: 0,
+    user: {
+        nickname: '',
+        avatar: ''
+    },
     // 标签信息
     tags: []
 })
@@ -159,8 +162,6 @@ const goUser = (id: number) => {
                 </div>
             </div>
             <articleComment ref="articleCommentRef" :article-id="articleId"></articleComment>
-            <!-- <article_comment ref="articleCommentRef" :article-id="Number(route.params.id)">
-            </article_comment> -->
         </div>
         <div class="article_info">
             <div class="user_info">

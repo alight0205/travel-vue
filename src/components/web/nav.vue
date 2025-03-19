@@ -126,34 +126,33 @@ const closeModel = () => {
 </script>
 
 <template>
-    <a-modal v-model:visible="searchModal" width="50%">
+    <!-- <a-modal v-model:visible="searchModal" width="50%">
         <template #title>
             <div class="searchTitle">搜索文章</div>
         </template>
-        <div class="search">
-            <a-input-search v-model="searchData.searchArticleByTitle" placeholder="请输入标题"
-                class="searchByArticleTitle" @search="searchArticle" />
+<div class="search">
+    <a-input-search v-model="searchData.searchArticleByTitle" placeholder="请输入标题" class="searchByArticleTitle"
+        @search="searchArticle" />
+</div>
+<div class="articleList">
+    <div class="info" v-if="data.total != 0">
+        <userDetail v-for="article in data.list" :articleRes="article" :authorDisplay="true" @close="closeModel">
+        </userDetail>
+        <div class="page">
+            <a-pagination show-total :total="data.total" v-model:current="params.page_num" :page-size="params.page_size"
+                @change="pageChange" />
         </div>
-        <div class="articleList">
-            <div class="info" v-if="data.total != 0">
-                <userDetail v-for="article in data.list" :articleRes="article" :authorDisplay="true" @close="closeModel"></userDetail>
-                <div class="page">
-                    <a-pagination show-total :total="data.total" v-model:current="params.page_num"
-                        :page-size="params.page_size" @change="pageChange" />
-                </div>
-            </div>
-            <div class="empty" v-else>
-                <a-empty />
-            </div>
-        </div>
-    </a-modal>
+    </div>
+    <div class="empty" v-else>
+        <a-empty />
+    </div>
+</div>
+</a-modal> -->
     <div class="nav-container">
         <div class="nav-content">
             <!-- 左侧logo -->
-            <router-link to="/" class="left-section">
-                <img src="@/assets/logo.png" alt="logo" class="logo" />
-            </router-link>
-
+            <!-- <img src="@/assets/logo.png" alt="logo" class="logo" /> -->
+            <div class="logo" @click="router.push({ name: 'home' })">旅游社交平台</div>
             <!-- 中间菜单 -->
             <div class="center-section">
                 <div class="menu" v-for="menu in menuList" :class="{ 'active-menu': isActive(menu.name) }"
@@ -164,7 +163,7 @@ const closeModel = () => {
             <!-- 右侧功能区 -->
             <div class="right-section">
                 <!-- 搜索框 -->
-                <icon-search @click="searchModal = true"></icon-search>
+                <!-- <icon-search @click="searchModal = true"></icon-search> -->
                 <template v-if="!puserStore.isLogin"> <!-- 如果用户未登录 -->
                     <a-button type="text" @click="navigateTo(false)">登录</a-button>
                     <a-button type="primary" @click="navigateTo(true)">注册</a-button>
@@ -216,9 +215,10 @@ const closeModel = () => {
 </template>
 
 <style lang="less">
-.arco-modal-footer{
+.arco-modal-footer {
     display: none;
 }
+
 .info {
     .page {
         margin-top: 20px;
@@ -247,14 +247,11 @@ const closeModel = () => {
         align-items: center;
         justify-content: space-between;
 
-        .left-section {
-            display: flex;
-            align-items: center;
-
-            .logo {
-                height: 65px;
-                cursor: pointer;
-            }
+        .logo {
+            font-size: 30px;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
         }
 
         .center-section {

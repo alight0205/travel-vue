@@ -67,11 +67,11 @@ defineExpose({
                 <span class="lablename">简介：</span>
                 <span class="infoname">{{ userInfo?.desc }}</span>
             </div>
-            <div class="about paddingDiv">
+            <!-- <div class="about paddingDiv">
                 <span class="lablename">用户组：</span>
                 <a-tag v-if="userInfo?.role===1" color="green">管理员</a-tag>
                 <a-tag v-else color="blue">普通用户</a-tag>
-            </div>
+            </div> -->
             <div class="created_at paddingDiv">
                 <span class="lablename">注册时间：</span>
                 <span class="infoname">{{ dateTimeFormat(userInfo?.created_at || '2006-06-06') }}</span>

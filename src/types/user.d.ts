@@ -54,7 +54,7 @@ export interface userRes {
   avatar?: string;   // 头像 URL（可选）
   desc?: string;     // 个人描述（可选）
   email?: string;    // 邮箱地址（可选）
-  role?: number; // 用户角色（1: 管理员, 2: 普通用户）默认为2
+  role: number; // 用户角色（1: 管理员, 2: 普通用户）默认为2
   status?: number; // 审核状态（1-已通过，2-未通过，默认为1）
   created_at: string; // 账号创建时间（可选）
   updated_at?: string; // 更新时间（可选）

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+.........<script setup lang="ts">
 import type { userRes } from '@/types/user'
 import { dataTemFormat, type dataTimeType } from "@/utils/date"
 interface Props {
@@ -41,7 +41,10 @@ const props = defineProps<Props>()
                     <span>关注</span>
                 </span>
             </div>
-            <div class="date">注册时间：{{ dataTemFormat(props.userInfo.created_at,'date') }}</div>
+            <div class="date">
+                <div class="time">注册时间：{{ dataTemFormat(props.userInfo.created_at,'date')}}</div>
+                <div class="email">邮箱：{{ props.userInfo.email }}</div>
+            </div>
         </div>
         <!-- <div class="action">
             <span v-if="true">封禁中</span>
@@ -118,6 +121,10 @@ const props = defineProps<Props>()
             color: var(--color-text-2);
             margin-top: 10px;
             font-size: 12px;
+            display: flex;
+            .time{
+                margin-right: 10px;
+            }
         }
     }
 

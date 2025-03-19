@@ -137,7 +137,7 @@ watch([selectedProvince, selectedCity], ([prov, city]) => {
         province: prov || undefined,
         city: city && city !== 0 ? city : undefined
     }
-    Message.success(`您选择了：${provinceData.find(p => p.value === prov)?.name} - ${currentCities.value.find(c => c.value === city)?.name}`)
+    // Message.success(`您选择了：${provinceData.find(p => p.value === prov)?.name} - ${currentCities.value.find(c => c.value === city)?.name}`)
     getSiteData()
     getArticleData()
     //   fetchArticles(params)

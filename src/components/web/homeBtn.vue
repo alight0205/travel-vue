@@ -14,7 +14,7 @@ const buttonList = ref<buttonListType[]>([
     { title: "个人资料", icon: "iconfont icon-yonghuxinxi-", url: "userInfo" },
     { title: "我的文章", icon: "iconfont icon-yifatiezi", url: "myArticle" },
     { title: "我的评论", icon: "iconfont icon-pinglun", url: "myComment" },
-    { title: "站点公告", icon: "iconfont icon-gonggao", url: "" },
+    // { title: "站点公告", icon: "iconfont icon-gonggao", url: "" },
 ])
 
 // 点击跳转函数

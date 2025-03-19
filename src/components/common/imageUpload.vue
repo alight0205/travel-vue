@@ -39,7 +39,7 @@ const uploadAvatar = async(_: any, currentFile: FileItem)=>{
 
 <template>
   <div class="f_image_upload">
-    <a-input :model-value="props.modelValue" :placeholder="props.placeholder" @input="inputHandler"></a-input>
+    <a-input :model-value="props.modelValue" :placeholder="props.placeholder" @input="inputHandler" class="avatarInput"></a-input>
     <a-upload 
       :multiple="false"
       :show-file-list="false" 
@@ -55,12 +55,15 @@ const uploadAvatar = async(_: any, currentFile: FileItem)=>{
   </div>
 </template>
 
-<style lang="less">
+<style lang="less" scoped>
 .f_image_upload {
   width: 100%;
   .arco-input-wrapper{
     display: flex;
     margin-bottom: 10px;
+  }
+  .avatarInput{
+    display: none;
   }
   .arco-image{
     &.circle{
