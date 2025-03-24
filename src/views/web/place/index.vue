@@ -267,7 +267,8 @@ watch([selectedProvince, selectedCity], ([prov, city]) => {
     .provinceRow {
         display: flex;
         gap: 10px;
-        overflow-x: auto;
+        flex-wrap: wrap;
+        // overflow-x: auto;
         padding: 10px 0;
     }
 
