@@ -91,28 +91,28 @@ const initData = async () => {
     count.value.userCount = user.data.total
     count.value.commentCount = comment.data.total
     count.value.siteCount = site.data.total
-    const res = await getIpLocation()
-    if (res.code === 200) {
-        location.value = formatAddress(res.region)
-        let city = res.region.replace(/^(.*?(省|自治区|市|特别行政区))(.*)$/, '$3');
-        const weatherRes = await getWeather(city)
-        if (weatherRes.code == 200) {
-            weather.value = weatherRes
-            if (weatherRes.temperature < 18) {
-                weather.value.tips = '温度不错，注意防寒哦！'
-            } else if (weatherRes.temperature < 26 && weatherRes.temperature >= 18) {
-                weather.value.tips = '温度不错，温度适宜哦！'
-            } else if (weatherRes.temperature >= 26) {
-                weather.value.tips = '温度炎热，注意防暑哦！'
-            } else if (weatherRes.temperature < 0) {
-                weather.value.tips = '温度严寒，注意防寒哦！'
-            }
-            return
-        }
-        Message.error("获取天气失败")
-        return
-    }
-    Message.error("获取地理位置失败")
+    // const res = await getIpLocation()
+    // if (res.code === 200) {
+    //     location.value = formatAddress(res.region)
+    //     let city = res.region.replace(/^(.*?(省|自治区|市|特别行政区))(.*)$/, '$3');
+    //     const weatherRes = await getWeather(city)
+    //     if (weatherRes.code == 200) {
+    //         weather.value = weatherRes
+    //         if (weatherRes.temperature < 18) {
+    //             weather.value.tips = '温度不错，注意防寒哦！'
+    //         } else if (weatherRes.temperature < 26 && weatherRes.temperature >= 18) {
+    //             weather.value.tips = '温度不错，温度适宜哦！'
+    //         } else if (weatherRes.temperature >= 26) {
+    //             weather.value.tips = '温度炎热，注意防暑哦！'
+    //         } else if (weatherRes.temperature < 0) {
+    //             weather.value.tips = '温度严寒，注意防寒哦！'
+    //         }
+    //         return
+    //     }
+    //     Message.error("获取天气失败")
+    //     return
+    // }
+    // Message.error("获取地理位置失败")
 }
 initData()
 

@@ -75,7 +75,9 @@ const data = reactive({
     examine_status: 0,
     user: {
         nickname: '',
-        avatar: ''
+        avatar: '',
+        email: '',
+        desc: '',
     },
     // 标签信息
     tags: []
@@ -169,16 +171,8 @@ const goUser = (id: number) => {
                     <a-avatar @click="goUser(data.creator)" :size="60" :image-url="data.user?.avatar"></a-avatar>
                 </div>
                 <div class="nick" @click="goUser(data.creator)">{{ data.user?.nickname }}</div>
-                <div class="data">
-                    <span>
-                        <span>0</span>
-                        <span>粉丝</span>
-                    </span>
-                    <span>
-                        <span>0</span>
-                        <span>关注</span>
-                    </span>
-                </div>
+                <div class="desc">{{ data.user?.desc }}</div>
+                <div class="email">{{ data.user?.email }}</div>
             </div>
             <div class="catalog_action" :class="{ isFixed: isFixed }">
                 <div class="catalog">
@@ -278,35 +272,18 @@ const goUser = (id: number) => {
         border-radius: 5px;
 
         .nick {
-            margin: 10px 0 20px 0;
+            margin: 10px 0;
             color: var(--color-text-1);
             cursor: pointer;
         }
 
-        .data {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            >span {
-                margin-right: 20px;
-
-                :nth-child(1) {
-                    font-size: 18px;
-                    color: var(--color-text-1);
-                    font-weight: 600;
-                    margin-right: 5px;
-                }
-
-                :nth-child(2) {
-                    color: var(--color-text-2);
-                }
-            }
-
-            .desc {
-                font-size: 12px;
-                color: var(--color-text-2);
-            }
+        .desc {
+            font-size: 12px;
+            color: var(--color-text-2);
+        }
+        .email {
+            font-size: 12px;
+            color: var(--color-text-2);
         }
     }
 

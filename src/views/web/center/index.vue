@@ -33,9 +33,6 @@ const isActive = (routeName: string) => {
 
 <template>
     <div class="user-center">
-        <div class="user-info">
-            个人中心
-        </div>
         <div class="user-func">
             <div class="user-menu">
                 <div class="menu-item" v-for="menu in menuList" :class="{ 'active-menu': isActive(menu.name) }" @click="router.push({ name: menu.name })">
@@ -59,21 +56,6 @@ const isActive = (routeName: string) => {
     margin-top: 90px;
     flex-direction: column;
     position: relative;
-
-    .user-info {
-        width: 100%;
-        padding: 20px;
-        font-size:38px;
-        color: #FFF;
-        .flex-center();
-        background: url("http://image.fengfengzhidao.com/gvb_1009/20231123092743__1123-h.png");
-        background-size: cover;
-        background-position: center;
-        border-radius: 5px;
-        height: 350px;
-
-
-    }
 
     .user-func {
         display: flex;

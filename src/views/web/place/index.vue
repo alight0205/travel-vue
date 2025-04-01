@@ -193,7 +193,7 @@ watch([selectedProvince, selectedCity], ([prov, city]) => {
 
             <div class="articleList">
                 <div class="head">
-                    <div class="articleTitle">游记</div>
+                    <div class="articleTitle">帖子</div>
                     <div class="right">
                         <a-input-search v-model="searhValue" placeholder="请输入标题" @search="searchArticle()" />
                     </div>

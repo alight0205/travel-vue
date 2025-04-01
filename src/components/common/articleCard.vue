@@ -32,9 +32,9 @@ const handleSelect = (value: number) => {
 <template>
     <a-card class="card">
         <template #actions>
-            <span class="icon-hover">
+            <!-- <span class="icon-hover">
                 <IconShareInternal />
-            </span>
+            </span> -->
             <span class="icon-hover" v-if="!noAction">
                 <a-dropdown @select="handleSelect" position="tr">
                     <IconMore />
@@ -82,6 +82,7 @@ const handleSelect = (value: number) => {
     transition: all .5s;
     border-radius: 5px 5px 0 0;
     height: 290px;
+    margin-right: 50px;
 
     &:hover {
         transform: translateY(-5px) scale(1.005);

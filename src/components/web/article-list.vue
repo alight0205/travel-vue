@@ -63,14 +63,14 @@ getList()
         <div class="head">
             <div class="title">帖子</div>
             <div class="right">
-                <a-input-search v-model="searhValue" placeholder="请输入标题" @search="searchArticle()" />
+                <a-input-search v-model="searhValue" placeholder="关键字搜索" @search="searchArticle()" />
             </div>
         </div>
         <a-spin dot v-if="data.total" :loading="loading">
             <div class="body">
                 <div class="card" v-for="article in data.list">
                     <div class="articleInfo">
-                        <div class="cover">
+                        <div class="cover" v-if="article.cover!=''">
                             <img :src="article.cover" alt="banner">
                         </div>
                         <div class="info">

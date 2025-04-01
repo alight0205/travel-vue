@@ -311,7 +311,7 @@ const featured = async (record: articleRes) => {
         </a-modal>
         <!-- 使用 w_list 组件，并传入必要的 props 和插槽 -->
         <!-- <w_list @add="visible=true" ref="fListRef" @row-click="rowClick" :actionGroup="actionGroup" :filterGroup="filters" :url="getUserListApi" :columns="columns"> -->
-        <w_list ref="fListRef" ban-lable="文章" :actionGroup="actionGroup" no-edit no-batch-delete no-default-delete
+        <w_list ref="fListRef" ban-lable="文章" no-add :actionGroup="actionGroup" no-edit no-batch-delete no-default-delete
             @delete="deleteArticle" @add="addArticle" @edit="editArticle" @row-click="rowClick" @ban="banArticle"
             :url="adminGetArticleListApi" :columns="columns">
             <!-- 自定义插槽列的内容，用于渲染文章封面 -->

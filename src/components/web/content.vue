@@ -55,7 +55,7 @@ async function getList(newParams?: paramsType) {
 const goArticleDetail = (id: number) => {
     router.push({ name: 'articleDetail', query: { id } })
 }
-getList()
+getList({is_banner:1})
 
 </script>
 

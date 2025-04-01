@@ -2,21 +2,27 @@
 import { ref, type Component } from "vue"
 import icon from "@/components/common/icon.vue"
 import router from "@/router"
+import { userStore } from '@/stores/user-store';  // 导入用户状态管理store
 // 标签内容类型
 interface buttonListType {
     title: string
     icon?: string | Component // 图标
     url: string
 }
+const puserStore = userStore();  // 获取用户store实例
+puserStore.loadUserInfo();  // 加载用户信息
+const userInfo = puserStore.userInfo;  // 声明userInfo，保存用户信息
 // 标签内容
 const buttonList = ref<buttonListType[]>([
     { title: "我要发贴", icon: "iconfont icon-fenleiliebiao", url: "articleAdd" },
     { title: "个人资料", icon: "iconfont icon-yonghuxinxi-", url: "userInfo" },
     { title: "我的文章", icon: "iconfont icon-yifatiezi", url: "myArticle" },
     { title: "我的评论", icon: "iconfont icon-pinglun", url: "myComment" },
-    // { title: "站点公告", icon: "iconfont icon-gonggao", url: "" },
+    // { title: "后台管理", icon: "iconfont icon-guanliyuanhoutai", url: "welcome" },
 ])
-
+const adminButtonList = ref<buttonListType[]>([
+    { title: "后台管理", icon: "iconfont icon-guanliyuanhoutai", url: "welcome" },
+])
 // 点击跳转函数
 function goUrl(url: string) {
     if (url === "") {
@@ -31,6 +37,20 @@ function goUrl(url: string) {
     <div class="btn_list">
         <!-- 目标块 -->
         <div class="btn" v-for="btn in buttonList" @click="goUrl(btn.url)">
+            <div class="btn_left">
+                <!-- 左图标 -->
+                <div class="icon">
+                    <icon :is="btn.icon"></icon>
+                </div>
+                <!-- 功能名 -->
+                <div class="title">{{ btn.title }}</div>
+            </div>
+            <div class="btn_right">
+                <!-- 右图标 -->
+                <div class="icon"><icon-right /></div>
+            </div>
+        </div>
+        <div class="btn" v-for="btn in adminButtonList" @click="goUrl(btn.url)" v-if="userInfo.role==1">
             <div class="btn_left">
                 <!-- 左图标 -->
                 <div class="icon">

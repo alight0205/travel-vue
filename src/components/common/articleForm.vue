@@ -15,6 +15,7 @@ import { onUploadImg } from '@/api/common'
 import { userStore } from '@/stores/user-store';  // 导入用户状态管理store
 // 引入API相关的类型定义
 import type { optionsType } from "@/types/index"
+import router from '@/router';
 // import { provinceDataList } from '@/mock/commonMock'
 
 const puserStore = userStore();  // 获取用户store实例
@@ -151,6 +152,7 @@ async function create() {
     form.city_code = 0
     form.creator = 0
     form.tags = []
+    router.push({ name: 'home' })
 }
 
 function coverBack(data: string) {
