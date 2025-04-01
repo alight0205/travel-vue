@@ -14,8 +14,9 @@ import commenetsCard from '@/components/common/commentsCard.vue'
 
 // 定义表格列的配置
 const columns: columnType[] = [
-    { title: "ID", dataIndex: 'id', width: 100 }, 
+    { title: "ID", dataIndex: 'id', width: 50 }, 
     { title: "文章ID", dataIndex: 'article_id', width: 100 }, 
+    { title: "用户ID", dataIndex: 'creator', width: 100 }, 
     { title: "IP地址", dataIndex: 'ip' },
     { title: "评论内容", dataIndex: 'content', ellipsis: true, tooltip: true }, 
     { title: "省份", dataIndex: 'province', width: 150  },
@@ -219,6 +220,7 @@ const deleteComments = async (keyList: number[] | string[]) => {
 const ipSearch = ref("")
 const contentSearch = ref("")
 const articleSearch = ref()
+const creatorSearch = ref()
 const search = (value: number) => {
     if(value === 1){
         fListRef.value.getList({ content: contentSearch.value })
@@ -226,6 +228,9 @@ const search = (value: number) => {
         fListRef.value.getList({ ip: ipSearch.value })
     } else if (value === 3) {
         fListRef.value.getList({ article_id: articleSearch.value })
+    }
+    else if (value === 4) {
+        fListRef.value.getList({ creator: creatorSearch.value })
     }else {
         fListRef.value.getList({ content: contentSearch.value })
     }
@@ -250,6 +255,7 @@ const search = (value: number) => {
                 <a-input-search placeholder="请输入评论内容" @search="search(1)" v-model="contentSearch"></a-input-search>
                 <a-input-search placeholder="请输入IP地址" @search="search(2)" v-model="ipSearch"></a-input-search>
                 <a-input-search placeholder="请输入文章ID" @search="search(3)" v-model="articleSearch"></a-input-search>
+                <a-input-search placeholder="请输入用户ID" @search="search(4)" v-model="creatorSearch"></a-input-search>
             </template>
         </w_list>
     </div>
