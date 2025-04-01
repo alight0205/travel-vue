@@ -25,9 +25,6 @@ const columns: columnType[] = [
     { title: "操作", slotName: 'action' }, // 插槽列，使用名为 "action" 的插槽
 ]
 
-function remove(keyList: number[]) {
-    console.log(keyList)
-}
 //   定义操作组
 const actionGroup = [
     {
@@ -327,38 +324,6 @@ const search = (status: number) => {
 
 <template>
     <div class="div">
-        <!-- <a-modal v-model:visible="addVisible" title="添加用户信息" :on-before-ok="handlerAdd">
-            <a-form :model="form">
-                <a-form-item label="用户名">
-                    <a-input placeholder="用户名" v-model="form.username"></a-input>
-                </a-form-item>
-                <a-form-item label="密码">
-                    <a-input placeholder="密码" v-model="form.password"></a-input>
-                </a-form-item>
-            </a-form>
-        </a-modal> -->
-        <!-- <a-modal v-model:visible="editVisible" title="编辑用户信息" :on-before-ok="handlerUpdate">
-            <a-form :model="form">
-                <a-form-item label="头像">
-                    <imageUpload v-model="form.avatar"></imageUpload>
-                </a-form-item>
-                <a-form-item label="昵称">
-                    <a-input placeholder="昵称" v-model="form.nickname"></a-input>
-                </a-form-item>
-                <a-form-item label="用户名">
-                    <a-input placeholder="用户名" v-model="form.username"></a-input>
-                </a-form-item>
-                <a-form-item label="邮箱">
-                    <a-input placeholder="邮箱" v-model="form.email"></a-input>
-                </a-form-item>
-                <a-form-item label="简介">
-                    <a-textarea placeholder="简介" v-model="form.desc"></a-textarea>
-                </a-form-item>
-                <a-form-item label="关于">
-                    <a-textarea placeholder="关于" v-model="form.about"></a-textarea>
-                </a-form-item>
-            </a-form>
-        </a-modal> -->
         <a-modal v-model:visible="lookVisible" :hide-cancel="true" :simple="true" okText="关闭">
             <userCard :user="currentRowInfo"></userCard>
         </a-modal>

@@ -3,8 +3,8 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import cover_cutter from '@/components/web/cover-cutter.vue'
-import type { articleRes, articleCreateReq } from '@/types/artrcle'
-import { userGetArticleDetailApi, createArticleApi } from '@/api/article'
+import type { articleRes, articleCreateReq, articleUpdateReq } from '@/types/artrcle'
+import { userGetArticleDetailApi, createArticleApi, updateArticleApi } from '@/api/article'
 import { userGetTagListApi } from '@/api/tag'
 import type { tagQueryListReq, tagRes } from '@/types/tag'
 import { reactive } from "vue";
@@ -38,6 +38,23 @@ const articleCreate = reactive<articleCreateReq>({
     content: '',
     // 相关联用户id
     user_id: 0,
+    // 省份代码
+    province_code: 0,
+    // 城市代码
+    city_code: 0,
+    tags: []
+})
+const articleUpdate = reactive<articleUpdateReq>({
+    // 文章ID，必填，指定要更新的文章
+    id: 0,
+    // 文章标题，必填
+    title: "",
+    // 文章描述，选填，文章的简短描述
+    desc: "",
+    // 封面图片，选填，文章的封面图URL
+    cover: "",
+    // 文章内容，必填
+    content: "",
     // 省份代码
     province_code: 0,
     // 城市代码
@@ -143,7 +160,7 @@ async function create() {
         Message.error(res.msg)
         return
     }
-    Message.success("发布成功")
+    Message.success("更新成功")
     form.title = ''
     form.desc = ''
     form.cover = ''
@@ -154,7 +171,35 @@ async function create() {
     form.tags = []
     router.push({ name: 'home' })
 }
-
+// 创建和更新逻辑
+async function update() {
+    
+    articleUpdate.title = form.title
+    articleUpdate.desc = form.desc
+    articleUpdate.cover = form.cover
+    articleUpdate.content = form.content
+    articleUpdate.id = form.id
+    articleUpdate.province_code = selectedProvinceValue.value
+    articleUpdate.city_code = selectedCityValue.value
+    tags.value.forEach(tag => {
+        articleUpdate.tags?.push(tag)
+    })
+    const res = await updateArticleApi(articleUpdate)
+    if (res.code) {
+        Message.error(res.msg)
+        return
+    }
+    Message.success("更新成功")
+    form.title = ''
+    form.desc = ''
+    form.cover = ''
+    form.content = ''
+    form.province_code = 0
+    form.city_code = 0
+    form.creator = 0
+    form.tags = []
+    router.push({ name: 'home' })
+}
 function coverBack(data: string) {
     form.cover = data
 }
@@ -304,7 +349,8 @@ onMounted(() => {
         </a-collapse>
 
         <div class="actions">
-            <a-button type="primary" @click="create()">{{ props.articleId ? '更新' : '发布文章' }}</a-button>
+            <a-button type="primary" v-if="props.articleId" @click="update()">更新</a-button>
+            <a-button type="primary" v-else @click="create()">发布文章</a-button>
         </div>
     </a-form>
 </template>

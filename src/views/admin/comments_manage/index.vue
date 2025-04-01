@@ -254,8 +254,8 @@ const search = (value: number) => {
             <template #search_other class="search_other">
                 <a-input-search placeholder="请输入评论内容" @search="search(1)" v-model="contentSearch"></a-input-search>
                 <a-input-search placeholder="请输入IP地址" @search="search(2)" v-model="ipSearch"></a-input-search>
-                <a-input-search placeholder="请输入省份" @search="search(3)" v-model="provinceSearch"></a-input-search>
-                <a-input-search placeholder="请输入城市" @search="search(4)" v-model="citySearch"></a-input-search>
+                <!-- <a-input-search placeholder="请输入省份" @search="search(3)" v-model="provinceSearch"></a-input-search> -->
+                <!-- <a-input-search placeholder="请输入城市" @search="search(4)" v-model="citySearch"></a-input-search> -->
             </template>
             <template #action_left>
                 <a-button type="primary" @click="lookVisible = true">预览</a-button>

@@ -7,6 +7,7 @@ interface Props {
     // 请求数据的URL函数，接受参数并返回Promise
     url?: (params?: paramsType) => Promise<baseResponse<any>>
     user?: userRes
+    count?: number
 }
 // 使用defineProps定义组件的Props
 const props = defineProps<Props>()
@@ -38,14 +39,10 @@ getData()
         <div class="userEmail">{{ props.user?.email }}</div>
         <a-divider></a-divider>
         <div class="otherInfo">
-            <div class="fllow flexContent">
-                <div class="lable">关注</div>
-                <div class="count">123</div>
-            </div>
-            <div class="articleCount flexContent">
+            <!-- <div class="articleCount flexContent">
                 <div class="lable">发布文章</div>
                 <div class="count">123</div>
-            </div>
+            </div> -->
             <div class="createdAt flexContent">
                 <div class="lable"> 注册时间</div>
                 <div class="count">{{ dataTemFormat(props.user?.created_at || '2006-06-06', 'date') }}</div>

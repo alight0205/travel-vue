@@ -2,7 +2,8 @@
 import router from '@/router';
 import type { articleRes } from '@/types/artrcle'
 import { Message } from '@arco-design/web-vue';
-import { dataTemFormat, type dataTimeType } from "@/utils/date"
+import {userDeleteArticleApi} from '@/api/article';
+import { dataTemFormat, type dataTimeType } from "@/utils/date";
 interface Props {
     noAvatar?: boolean
     noBan?: boolean
@@ -19,12 +20,20 @@ const dropDownOptions: DorpDownOptionsType[] = [
     { value: 2, label: '删除文章' },
 ]
 
+const emits = defineEmits(['delete'])
 
-const handleSelect = (value: number) => {
+const handleSelect = async(value: number) => {
     if (value === 1) {
         router.push({ path: '/article/edit', query: { id: props.articleRes?.id } })
     } else {
+        const res = await userDeleteArticleApi(props.articleRes.id)
+        if (res.code){
+            Message.error('文章删除成功失败')
+            return
+        }
+        emits('delete')
         Message.success('文章删除成功')
+
     }
 }
 </script>

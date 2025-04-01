@@ -17,6 +17,9 @@ export const createArticleApi = (data: articleCreateReq): Promise<baseResponse<s
 // 删除文章接口，接受文章ID，发送POST请求进行删除操作
 export const deleteArticleApi = (id: number): Promise<baseResponse<string>> =>
   useAxios.post('/api/admin/article/remove', { id });
+// 普通用户删除自己的文章
+export const userDeleteArticleApi = (id: number): Promise<baseResponse<string>> =>
+  useAxios.post('/api/user/article/remove', { id });
 
 // 管理员获取文章详情接口，接受文章ID，发送GET请求获取文章详细信息
 export const adminGetArticleDetailApi = (id: number): Promise<baseResponse<articleRes>> =>
@@ -44,4 +47,4 @@ export const getArticleListApi = (params?: articleQueryListReq): Promise<baseRes
 
 // 更新文章接口，接受文章更新请求数据，发送POST请求更新文章信息
 export const updateArticleApi = (params: articleUpdateReq): Promise<baseResponse<string>> =>
-  useAxios.post('/api/article/update', { params });
+  useAxios.post('/api/user/article/update',  params );

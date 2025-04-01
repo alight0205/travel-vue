@@ -32,14 +32,6 @@ const props = defineProps<Props>()
                     <span>{{ props.articleCount }} </span>
                     <span>文章</span>
                 </span>
-                <span>
-                    <span>0</span>
-                    <span>粉丝</span>
-                </span>
-                <span>
-                    <span>0</span>
-                    <span>关注</span>
-                </span>
             </div>
             <div class="date">
                 <div class="time">注册时间：{{ dataTemFormat(props.userInfo.created_at,'date')}}</div>

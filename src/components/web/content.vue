@@ -81,7 +81,7 @@ getList({is_banner:1})
     </div>
 </template>
 
-<style lang="less">
+<style lang="less" scoped>
 .content-container {
     margin: 0 auto;
     margin-top: 80px;

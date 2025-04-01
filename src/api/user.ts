@@ -18,7 +18,7 @@ import type { loginRes } from '@/types/login';
  * @returns 操作结果（通常返回成功或失败信息）
  */
 export const createUserApi = (data: userCreateReq): Promise<baseResponse<loginRes>> =>
-  useAxios.post('/api/user/create', data);
+  useAxios.post('/api/auth/register', data);
 
 /**
  * 注销用户 API

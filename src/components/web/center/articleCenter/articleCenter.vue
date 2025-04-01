@@ -55,6 +55,8 @@ const goDetail = (id:number)=>{
 }
 getList()
 
+
+
 </script>
 
 
@@ -64,7 +66,7 @@ getList()
             <div class="left-section">我的文章</div>
         </div>
         <div class="body">
-            <articleCard no-avatar v-for="article in data.list" :article-res="article"></articleCard>
+            <articleCard no-avatar v-for="article in data.list" :article-res="article" @delete="getList"></articleCard>
         </div>
         <a-empty v-if="data.total === 0" />
         <div class="page" v-else>

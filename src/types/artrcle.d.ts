@@ -29,10 +29,23 @@ export interface articleCreateReq {
 }
 
 
-// 更新文章请求参数接口，继承自 articleCreateReq，额外添加文章ID和发布时间
-export interface articleUpdateReq extends articleCreateReq {
+// 更新文章请求参数接口，额外添加文章ID
+export interface articleUpdateReq {
   // 文章ID，必填，指定要更新的文章
   id: number;
+  // 文章标题，必填
+  title: string;
+  // 文章描述，选填，文章的简短描述
+  desc?: string;
+  // 封面图片，选填，文章的封面图URL
+  cover?: string;
+  // 文章内容，必填
+  content: string;
+  // 省份代码
+  province_code?: int;
+  // 城市代码
+  city_code?: int;
+  tags?: []
 }
 
 // 查询文章列表请求参数接口
