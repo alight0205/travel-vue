@@ -62,7 +62,7 @@ const props = defineProps<Props>()
 const {
     rowKey = "id",
     noDefaultDelete = false,
-    searchPlaceholder = "搜索",
+    searchPlaceholder = "关键字搜索",
     addLable = "添加",
     editLable = "编辑",
     deleteLable = "删除",

@@ -218,8 +218,7 @@ const deleteComments = async (keyList: number[] | string[]) => {
 }
 const ipSearch = ref("")
 const contentSearch = ref("")
-const articleSearch = ref(0)
-const citySearch = ref("")
+const articleSearch = ref()
 const search = (value: number) => {
     if(value === 1){
         fListRef.value.getList({ content: contentSearch.value })
@@ -251,8 +250,6 @@ const search = (value: number) => {
                 <a-input-search placeholder="请输入评论内容" @search="search(1)" v-model="contentSearch"></a-input-search>
                 <a-input-search placeholder="请输入IP地址" @search="search(2)" v-model="ipSearch"></a-input-search>
                 <a-input-search placeholder="请输入文章ID" @search="search(3)" v-model="articleSearch"></a-input-search>
-                <!-- <a-input-search placeholder="请输入省份" @search="search(3)" v-model="provinceSearch"></a-input-search> -->
-                <!-- <a-input-search placeholder="请输入城市" @search="search(4)" v-model="citySearch"></a-input-search> -->
             </template>
         </w_list>
     </div>

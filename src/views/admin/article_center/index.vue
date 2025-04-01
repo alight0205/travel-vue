@@ -22,6 +22,7 @@ const columns: columnType[] = [
     { title: "ID", dataIndex: 'id' }, // 普通列，显示文章ID
     { title: "文章名", dataIndex: 'title' }, // 普通列，显示文章名
     { title: "封面", slotName: 'cover' }, // 插槽列，使用名为 "cover" 的插槽
+    { title: "文章作者ID", dataIndex: 'creator' }, // 普通列，显示文章ID
     { title: "省市区", slotName: 'province_code' },
     { title: "阅读数", dataIndex: 'read_num' }, // 普通列，显示阅读数
     { title: "创建时间", slotName: 'created_at', dataFormat: "date" }, // 普通列，显示创建时间，可自定义字段判断使用哪个函数
@@ -176,6 +177,10 @@ const filters: filterGroupType[] = [
 ]
 const articleId = ref<number>(0)
 const examineStatus = ref<number>(0)
+const creatorSearchText = ref("")
+const creatorSearch = ()=>{
+    fListRef.value.getList({ creator: creatorSearchText.value })
+}
 // 点击行
 function rowClick(record: articleRes) {
     articleId.value = record.id
@@ -340,6 +345,9 @@ const featured = async (record: articleRes) => {
                 <a-popconfirm v-else @ok="featured(record)" content="确定要精选该文章吗" type="warning">
                     <a-button status="success">精选</a-button>
                 </a-popconfirm>
+            </template>
+            <template #search_other class="search_other">
+                <a-input-search placeholder="请输用户ID" @search="creatorSearch" v-model="creatorSearchText"></a-input-search>
             </template>
         </w_list>
     </div>
