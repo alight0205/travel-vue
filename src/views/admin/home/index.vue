@@ -156,10 +156,10 @@ initData()
                 <div class="title">更新日志</div>
                 <a-divider></a-divider>
                 <div class="updateLog">
-                    <div class="text">1.使用技术</div>
+                    <div class="text">使用技术</div>
                     <ul>
                         <li>后端：Golang + Gin</li>
-                        <li>前端：Vite + Vue3 + TypeScript + ArcoDesign</li>
+                        <li>前端：Vue3 + ArcoDesign</li>
                     </ul>
                 </div>
             </div>
