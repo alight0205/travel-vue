@@ -14,14 +14,15 @@ import commenetsCard from '@/components/common/commentsCard.vue'
 
 // 定义表格列的配置
 const columns: columnType[] = [
-    { title: "ID", dataIndex: 'id', width: 50 }, // 普通列，显示文章ID
+    { title: "ID", dataIndex: 'id', width: 100 }, 
+    { title: "文章ID", dataIndex: 'article_id', width: 100 }, 
     { title: "IP地址", dataIndex: 'ip' },
-    { title: "评论内容", dataIndex: 'content', ellipsis: true, tooltip: true }, // 普通列，显示文章名
+    { title: "评论内容", dataIndex: 'content', ellipsis: true, tooltip: true }, 
     { title: "省份", dataIndex: 'province', width: 150  },
     { title: "市区", dataIndex: 'city', width: 150  },
-    { title: "创建时间", slotName: 'created_at', dataFormat: "date" }, // 普通列，显示创建时间，可自定义字段判断使用哪个函数
-    { title: "评论状态", slotName: 'examine_status' }, // 文章状态
-    { title: "操作", slotName: 'action' }, // 插槽列，使用名为 "action" 的插槽
+    { title: "创建时间", slotName: 'created_at', dataFormat: "date" }, 
+    { title: "评论状态", slotName: 'examine_status' }, 
+    { title: "操作", slotName: 'action' }, 
 ]
 
 function remove(keyList: number[]) {
@@ -217,7 +218,7 @@ const deleteComments = async (keyList: number[] | string[]) => {
 }
 const ipSearch = ref("")
 const contentSearch = ref("")
-const provinceSearch = ref("")
+const articleSearch = ref(0)
 const citySearch = ref("")
 const search = (value: number) => {
     if(value === 1){
@@ -225,9 +226,7 @@ const search = (value: number) => {
     }else if (value === 2) {
         fListRef.value.getList({ ip: ipSearch.value })
     } else if (value === 3) {
-        fListRef.value.getList({ province: provinceSearch.value })
-    } else if (value === 4) {
-        fListRef.value.getList({ city: citySearch.value })
+        fListRef.value.getList({ article_id: articleSearch.value })
     }else {
         fListRef.value.getList({ content: contentSearch.value })
     }
@@ -238,9 +237,6 @@ const search = (value: number) => {
 
 <template>
     <div class="div">
-        <a-modal width="70%" v-model:visible="lookVisible" hide-cancel title="预览评论">
-            <commenetsCard :articleId="articleId" :creator="creator" :currentComment="currentComment"></commenetsCard>
-        </a-modal>
         <!-- 使用 w_list 组件，并传入必要的 props 和插槽 -->
         <!-- <w_list @add="visible=true" ref="fListRef" @row-click="rowClick" :actionGroup="actionGroup" :filterGroup="filters" :url="getUserListApi" :columns="columns"> -->
         <w_list ref="fListRef" ban-lable="评论" :actionGroup="actionGroup" :filter-group="filters" no-batch-delete no-default-delete no-edit
@@ -254,11 +250,9 @@ const search = (value: number) => {
             <template #search_other class="search_other">
                 <a-input-search placeholder="请输入评论内容" @search="search(1)" v-model="contentSearch"></a-input-search>
                 <a-input-search placeholder="请输入IP地址" @search="search(2)" v-model="ipSearch"></a-input-search>
+                <a-input-search placeholder="请输入文章ID" @search="search(3)" v-model="articleSearch"></a-input-search>
                 <!-- <a-input-search placeholder="请输入省份" @search="search(3)" v-model="provinceSearch"></a-input-search> -->
                 <!-- <a-input-search placeholder="请输入城市" @search="search(4)" v-model="citySearch"></a-input-search> -->
-            </template>
-            <template #action_left>
-                <a-button type="primary" @click="lookVisible = true">预览</a-button>
             </template>
         </w_list>
     </div>
