@@ -78,9 +78,6 @@ const goUserDetail = (id: number) => {
   <a-comment class="comment_tree_com" :content="item.content" v-for="item in props.list"
     :datetime="dateCurrentFormat(item.created_at)">
     <template #actions>
-      <span class="action">
-        <IconHeart /> 点赞
-      </span>
       <span class="action" @click="apply(item)">
         <i class="iconfont icon-pinglun1"></i> 回复{{ item.subComments?.length }}
       </span>

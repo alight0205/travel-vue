@@ -37,7 +37,6 @@ const formatTime = (time: string) => {
         <p class="content">{{ data.desc }}</p>
         <div class="stats">
           <span>阅读 {{ data.read_num }}</span>
-          <span>点赞 {{ data.like_count }}</span>
         </div>
       </div>
     </div>

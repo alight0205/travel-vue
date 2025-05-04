@@ -21,14 +21,6 @@ export const createUserApi = (data: userCreateReq): Promise<baseResponse<loginRe
   useAxios.post('/api/auth/register', data);
 
 /**
- * 注销用户 API
- * @param id 
- * @returns 操作结果（成功或失败信息）
- */
-export const logoutUserApi = (): Promise<baseResponse<string>> =>
-  useAxios.post('/api/user/delete');
-
-/**
  * 获取当前用户详情 API
  * @param userId 需要查询的用户 ID
  * @returns 该用户的详细信息

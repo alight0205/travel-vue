@@ -86,9 +86,6 @@ async function remove(item: commentTreeType) {
   <a-comment class="comment_tree_com" :content="item.content" v-for="item in props.list"
              :datetime="dateCurrentFormat(item.createdAt)">
     <template #actions>
-      <span class="action" @click="digg(item)" :class="{active: item.isDigg}">
-          <i class="iconfont icon-dianzan_kuai"></i> 点赞（{{ item.diggCount }}）
-      </span>
       <span class="action" v-if="props.line != store.siteInfo.article.commentLine" @click="apply(item)">
         <i class="iconfont icon-pinglun1"></i> 回复（{{ item.applyCount }}）
       </span>

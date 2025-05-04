@@ -43,5 +43,4 @@ export function dataTemFormat(date:string,name?:dataTimeType){
     }
 
     return dateTimeFormat(date)
-
 }

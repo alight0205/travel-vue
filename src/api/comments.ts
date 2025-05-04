@@ -27,7 +27,7 @@ export const adminDeleteCommentApi = (id: number): Promise<baseResponse<string>>
   useAxios.post('/api/admin/comment/delete', { id });
 // 用户删除评论接口
 export const userDeleteCommentApi = (id: number): Promise<baseResponse<string>> =>
-  useAxios.post('/api/admin/comment/delete', { id });
+  useAxios.post('/api/user/comment/remove', { id });
 
 /**
  * 根据文章 ID 获取评论列表 API

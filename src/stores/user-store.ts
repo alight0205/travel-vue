@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { getUserApiDetail, logoutUserApi } from '@/api/user'
+import { getUserApiDetail } from '@/api/user'
 import type { userRes } from '@/types/user'
 import { Message } from '@arco-design/web-vue'
 import { parseToken } from '@/utils/parse-token'
@@ -115,9 +115,6 @@ export const userStore = defineStore('userStore', {
      * 清除本地存储的用户数据，并通知服务器注销
      */
     async userLogout() {
-      // 1. 请求后端注销接口
-      const res = await logoutUserApi()
-
       // 2. 清除本地存储的用户数据
       localStorage.removeItem("userInfo")
 

@@ -35,16 +35,6 @@ const router = createRouter({
               name: "myComment",
               path: "myComment",
               component: () => import("@/views/web/center/myComment.vue")
-            },
-            {
-              name: "myLike",
-              path: "myLike",
-              component: () => import("@/views/web/center/myLike.vue")
-            },
-            {
-              name: "myCollect",
-              path: "myCollect",
-              component: () => import("@/views/web/center/myCollect.vue")
             }
           ]
         },
@@ -57,11 +47,6 @@ const router = createRouter({
               path: "detail",
               component: () => import("@/views/web/article/articleDetail.vue")
             },
-            // {
-            //   name:"articleList",
-            //   path:"list",
-            //   component:()=>import("@/views/web/article/list.vue")
-            // },
             {
               name: "articleAdd",
               path: "create",
